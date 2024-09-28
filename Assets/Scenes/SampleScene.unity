@@ -228,6 +228,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mCamera: {fileID: 0}
+  camHoldAction:
+    m_Name: Cam Hold
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: d75257c2-4c10-4e84-9ba0-45da25e83e0c
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  camMoveAction:
+    m_Name: Cam Move
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: ebadb151-8610-4db2-bff1-7e1a28f1dc69
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   zoomAction:
     m_Name: Zoom
     m_Type: 0
@@ -238,8 +256,69 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   CAM_ADJ_VAL: 0.5
-  MAX_CAM_SIZE: 20
+  MAX_CAM_SIZE: 10
   MIN_CAM_SIZE: 1
+--- !u!1001 &779700673
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -3371409058061971520, guid: 457e2d478f62695459c256d43ef66064, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5ec0317473b785f42bb843283a93a4a5, type: 2}
+    - target: {fileID: 2696036593138608933, guid: 457e2d478f62695459c256d43ef66064, type: 3}
+      propertyPath: m_Name
+      value: ConveyerBeltPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 457e2d478f62695459c256d43ef66064, type: 3}
 --- !u!1001 &909329080
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -361,3 +440,4 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 909329080}
   - {fileID: 1314159428}
+  - {fileID: 779700673}
