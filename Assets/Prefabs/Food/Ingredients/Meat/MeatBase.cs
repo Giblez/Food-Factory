@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FridgeScript : MonoBehaviour
+public class MeatBase : IngredientBase
 {
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        
+        /* Call parent's Start */
+        base.Start();
     }
 
     // Update is called once per frame
