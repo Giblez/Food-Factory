@@ -74,8 +74,8 @@ public class CameraController : MonoBehaviour
         {
             Debug.Log("t");
             PrefabBase prefab = (PrefabBase) AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Food/Ingredients/Meat/RawChicken/RawChickenPrefab.prefab", typeof(PrefabBase));
-            // PrefabBase clone = Instantiate(prefab) as PrefabBase;
-            // objectInHand = clone;
+            PrefabBase clone = Instantiate(prefab) as PrefabBase;
+            objectInHand = clone;
             // objectInHand = Instantiate(tmpObj);
         }
 
