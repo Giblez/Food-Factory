@@ -184,7 +184,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 1
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -269,14 +269,18 @@ PrefabInstance:
     - target: {fileID: -3371409058061971520, guid: 457e2d478f62695459c256d43ef66064, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 5ec0317473b785f42bb843283a93a4a5, type: 2}
+      objectReference: {fileID: 9100000, guid: 6d6d18f2bf41ac64ab2abda54614dd0e, type: 2}
     - target: {fileID: 2696036593138608933, guid: 457e2d478f62695459c256d43ef66064, type: 3}
       propertyPath: m_Name
       value: ConveyerBeltPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 3436281666424220964, guid: 457e2d478f62695459c256d43ef66064, type: 3}
+      propertyPath: foodOnBelt
+      value: 
+      objectReference: {fileID: 1826789143}
     - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.472
       objectReference: {fileID: 0}
     - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
       propertyPath: m_LocalPosition.y
@@ -386,7 +390,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1336708032438756872, guid: 40310b6b6ab156f468efd162504b6d6e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.8
+      value: -0.719
       objectReference: {fileID: 0}
     - target: {fileID: 1336708032438756872, guid: 40310b6b6ab156f468efd162504b6d6e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -433,6 +437,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40310b6b6ab156f468efd162504b6d6e, type: 3}
+--- !u!114 &1826789143 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2832795765134579834, guid: 5077b0a968dfbf949a4a584cc8c4034c, type: 3}
+  m_PrefabInstance: {fileID: 909329080}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c362d4c9c5f825a4796c3a4d9eb324e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7521154915593528322}
   - component: {fileID: 3436281666424220964}
   - component: {fileID: -3371409058061971520}
+  - component: {fileID: -3425080199704163108}
   m_Layer: 0
   m_Name: ConveyerBeltPrefab
   m_TagString: Untagged
@@ -47,6 +48,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 285e958da8d57064194322d78ffd4320, type: 3}
   spriteRenderer: {fileID: 0}
+  animator: {fileID: 0}
+  animLenSec: 0.24
+  animKeys: 8
+  lenOfKey: 0
+  beltMoveInc: {x: 0, y: 0, z: 0}
+  foodOnBelt: {fileID: 0}
+  splineContainer: {fileID: 0}
+  startConnector: {fileID: 0}
+  endConnector: {fileID: 0}
 --- !u!95 &-3371409058061971520
 Animator:
   serializedVersion: 5
@@ -57,7 +67,7 @@ Animator:
   m_GameObject: {fileID: 2696036593138608933}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e03927407d7d8eb478d2a5462f2a1ca3, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6d6d18f2bf41ac64ab2abda54614dd0e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -68,3 +78,83 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-3425080199704163108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2696036593138608933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dab5c7d4c32e743048dfca98e2d5914f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Spline:
+    m_EditModeType: 1
+    m_Knots: []
+    m_MetaData: []
+    m_Closed: 0
+    m_IntData:
+      m_Data: []
+    m_FloatData:
+      m_Data: []
+    m_Float4Data:
+      m_Data: []
+    m_ObjectData:
+      m_Data: []
+  m_Splines:
+  - m_EditModeType: 1
+    m_Knots:
+    - Position:
+        x: 0.08
+        y: 0
+        z: 0
+      TangentIn:
+        x: 0
+        y: 0
+        z: -1
+      TangentOut:
+        x: 0
+        y: 0
+        z: 1
+      Rotation:
+        value:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+    - Position:
+        x: -0.08
+        y: 0
+        z: 3
+      TangentIn:
+        x: 0
+        y: 0
+        z: -1
+      TangentOut:
+        x: 0
+        y: 0
+        z: 1
+      Rotation:
+        value:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+    m_MetaData:
+    - Mode: 2
+      Tension: 0.5
+    - Mode: 2
+      Tension: 0.5
+    m_Closed: 0
+    m_IntData:
+      m_Data: []
+    m_FloatData:
+      m_Data: []
+    m_Float4Data:
+      m_Data: []
+    m_ObjectData:
+      m_Data: []
+  m_Knots:
+    m_KnotsLink: []

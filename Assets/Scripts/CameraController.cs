@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEditor;
 
 public class CameraController : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class CameraController : MonoBehaviour
 
     private Vector3 camOffset;
 
+    public InputAction tempAction;
+    public PrefabBase objectInHand;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +27,9 @@ public class CameraController : MonoBehaviour
         camHoldAction = InputSystem.actions.FindAction("UI/RightClick");
         camMoveAction = InputSystem.actions.FindAction("UI/Move");
         zoomAction = InputSystem.actions.FindAction("UI/ScrollWheel");
+        tempAction = InputSystem.actions.FindAction("UI/Temp");
+
+        objectInHand = null;
     }
 
     // Update is called once per frame
@@ -60,6 +68,20 @@ public class CameraController : MonoBehaviour
                     mCamera.orthographicSize = mCamera.orthographicSize + CAM_ADJ_VAL;
                 }
             }
+        }
+
+        if (tempAction.ReadValue<float>() == 1.0f && objectInHand == null)
+        {
+            Debug.Log("t");
+            PrefabBase prefab = (PrefabBase) AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Food/Ingredients/Meat/RawChicken/RawChickenPrefab.prefab", typeof(PrefabBase));
+            // PrefabBase clone = Instantiate(prefab) as PrefabBase;
+            // objectInHand = clone;
+            // objectInHand = Instantiate(tmpObj);
+        }
+
+        if (objectInHand != null)
+        {
+            objectInHand.transform.position = Input.mousePosition;
         }
     }
 }

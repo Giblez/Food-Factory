@@ -11,6 +11,8 @@ public class FoodBase : PrefabBase
     {
         /* Call parent's Start */
         base.Start();
+
+        spriteRenderer.sortingLayerName = "Food";
     }
 
     // Update is called once per frame
