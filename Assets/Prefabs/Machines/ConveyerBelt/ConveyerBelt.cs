@@ -77,6 +77,5 @@ public class ConveyerBelt : PrefabBase
     // Update is called once per frame
     private void Update()
     {
-        AnimatorStateInfo animState = animator.GetCurrentAnimatorStateInfo(0);
     }
 }

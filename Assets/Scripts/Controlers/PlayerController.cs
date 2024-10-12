@@ -7,52 +7,89 @@ using UnityEditor;
 
 public class PlayerController : MonoBehaviour
 {
+    /* Input Actions */
     public InputAction placeObjAction;
     public InputAction tempAction;
     public InputAction tempAction2;
     public InputAction cancelObjAction;
-    public PrefabBase objectInHand;
+    public InputAction rotateHeldObjectAction;
+
+    /* Reference to Game Controller */
     public GameController gameController;
+    /* Reference to the object held in hand */
+    public PrefabBase objectInHand;
+    /* Boolean to hold if the object has already spun for
+    the button press */
+    private bool objectInHandSpun;
     
     /* Game objects */
     public Camera mCamera;
     public Grid mGrid;
 
-    private Vector2 placedLoc;
+    private Vector2 placedLoc2D;
 
     // Start is called before the first frame update
     void Start()
     {
+        /* Initialize input mapping */
         placeObjAction = InputSystem.actions.FindAction("UI/PlaceObject");
         tempAction = InputSystem.actions.FindAction("UI/Temp");
         tempAction2 = InputSystem.actions.FindAction("UI/Temp2");
         cancelObjAction = InputSystem.actions.FindAction("UI/CancelObject");
+        rotateHeldObjectAction = InputSystem.actions.FindAction("UI/RotateHeldObject");
+
+        /* Initialize misc variables */
         objectInHand = null;
-        placedLoc = new Vector2(Mathf.Infinity, Mathf.Infinity);
+        placedLoc2D = new Vector2(Mathf.Infinity, Mathf.Infinity);
+        objectInHandSpun = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        /* If there is an object in hand map it to the mouse location */
+        if (objectInHand != null)
+        {
+            /* Set the object position to the center of the current grid cell the mouse is over */
+            Vector3 mousePosition = mCamera.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0;
+            Vector3Int cellPosition = mGrid.WorldToCell(mousePosition);
+            objectInHand.transform.position = mGrid.GetCellCenterWorld(cellPosition);
+        }
+
         /* If the object is placed */
         if (placeObjAction.ReadValue<float>() == 1.0 && objectInHand != null)
         {
-            if (objectInHand.GetType() == typeof(ConveyerBelt))
+            /* Get the center of the current grid cell the mouse is over */
+            Vector3 mousePosition = mCamera.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0;
+            Vector3Int cellGridPosition = mGrid.WorldToCell(mousePosition);
+            Vector3 cellWorldPosition = mGrid.GetCellCenterWorld(cellGridPosition);
+            Vector2 cellWorldPosition2D = new Vector2(cellWorldPosition.x, cellWorldPosition.y);
+
+            /* Check if there is any object already in the grid at the location */
+            Collider2D cellCollider = Physics2D.OverlapPoint(cellWorldPosition2D, 1<<LayerMask.NameToLayer("Game Object"));
+
+            /* Check if we are at a new cell position and there is no overlap */
+            if ((placedLoc2D != cellWorldPosition2D) && (cellCollider == null))
             {
-                // Check if we should set rotation of conveyerbelt
-            }
-            Vector3 tPosition = mCamera.ScreenToWorldPoint(Input.mousePosition);
-            tPosition.z = 0;
-            Vector3Int cellPosition = mGrid.WorldToCell(tPosition);
-            tPosition = mGrid.GetCellCenterWorld(cellPosition);
-            Vector2 tVector2d = new Vector2(tPosition.x, tPosition.y);
-            if (placedLoc != tVector2d)
-            {
-                placedLoc = tVector2d;
+                /* Check if we should set rotation of conveyerbelt */
+                if (objectInHand.GetType() == typeof(ConveyerBelt))
+                {
+                    Debug.Log("New Belt, Count: " + gameController.conveyerBeltList.Count);
+                }
+
+                Debug.Log("New Belt");
+                /* Place the object in hand onto the grid */
                 objectInHand.gameObject.layer = LayerMask.NameToLayer("Game Object");
 
+                /* Set the new placed location to the current cell */
+                placedLoc2D = cellWorldPosition2D;
+
                 // TODO - add this to a function in the future since its the same as summoning a conveyer belt below
-                PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltPrefab.prefab", typeof(PrefabBase)));
+                PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltPrefab.prefab", typeof(PrefabBase)), 
+                    cellWorldPosition, objectInHand.transform.rotation);
+                objectInHand = null;
                 prefab.gameObject.layer = LayerMask.NameToLayer("Held In Hand");
                 gameController.conveyerBeltList.Add((ConveyerBelt)prefab);    
                 objectInHand = prefab;  
@@ -70,6 +107,7 @@ public class PlayerController : MonoBehaviour
         /* Temp action to summon a conveyer belt */
         if (tempAction2.ReadValue<float>() == 1.0f && objectInHand == null)
         {
+            // TODO - need to add instantiate location to mouse
             PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltPrefab.prefab", typeof(PrefabBase)));
             objectInHand = prefab;
             objectInHand.gameObject.layer = LayerMask.NameToLayer("Held In Hand");
@@ -82,17 +120,30 @@ public class PlayerController : MonoBehaviour
             gameController.RemoveConveyerBelt((ConveyerBelt)objectInHand);
             objectInHand.Destroy();
             objectInHand = null;
-            placedLoc = new Vector2(Mathf.Infinity, Mathf.Infinity);
+            placedLoc2D = new Vector2(Mathf.Infinity, Mathf.Infinity);
         }
 
-        /* If there is an object in hand */
+        /* Is there an object in hand */
         if (objectInHand != null)
         {
-            Vector3 tPosition = mCamera.ScreenToWorldPoint(Input.mousePosition);
-            tPosition.z = 0;
+            /* Do we want to rotate the object held in hand */
+            float rotVal = rotateHeldObjectAction.ReadValue<float>();
+            if ((rotVal != 0.0f) && (objectInHandSpun == false))
+            {
+                objectInHandSpun = true;
+                objectInHand.transform.Rotate(0, 0, 90*rotVal);
+                Debug.Log(rotVal);
+            }
+            else
+            {
+                /* If the key has been lifted and the object has already spun,
+                reset the spun boolean */
+                if (rotVal == 0.0f && objectInHandSpun == true)
+                {
+                    objectInHandSpun = false;
+                }
+            }
 
-            Vector3Int cellPosition = mGrid.WorldToCell(tPosition);
-            objectInHand.transform.position = mGrid.GetCellCenterWorld(cellPosition);
         }
     }
 }
