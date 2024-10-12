@@ -107,7 +107,7 @@ MonoBehaviour:
   - m_EditModeType: 1
     m_Knots:
     - Position:
-        x: 0.08
+        x: 0.16
         y: 0
         z: 0
       TangentIn:
@@ -125,9 +125,9 @@ MonoBehaviour:
           z: 0
           w: 1
     - Position:
-        x: -0.08
+        x: -0.16
         y: 0
-        z: 3
+        z: 0
       TangentIn:
         x: 0
         y: 0
@@ -201,5 +201,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 0.32, y: 0.32}
   m_EdgeRadius: 0
