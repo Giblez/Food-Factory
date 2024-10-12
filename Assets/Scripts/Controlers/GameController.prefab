@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2967902981895570059
+--- !u!1 &6172668865252767482
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5283281253109919585}
-  - component: {fileID: 6825882445852930606}
-  m_Layer: 8
-  m_Name: PrefabBase
+  - component: {fileID: 6347814351472414848}
+  - component: {fileID: -4337237963105212520}
+  m_Layer: 0
+  m_Name: GameController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5283281253109919585
+--- !u!4 &6347814351472414848
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2967902981895570059}
+  m_GameObject: {fileID: 6172668865252767482}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,18 +32,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6825882445852930606
+--- !u!114 &-4337237963105212520
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2967902981895570059}
+  m_GameObject: {fileID: 6172668865252767482}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04e1dda1e735a9d4cab7699cf3c55355, type: 3}
+  m_Script: {fileID: 11500000, guid: db393efba1b1f40459f82f429fc70f91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  spriteRenderer: {fileID: 0}
-  gameController: {fileID: 0}
+  conveyerBeltAnimTime: 0

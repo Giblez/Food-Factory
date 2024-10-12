@@ -105,9 +105,36 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "PlaceObject",
+                    "type": "Value",
+                    "id": "68bcfad8-fe43-4c10-9214-3d417cb8fcb9",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "CancelObject",
+                    "type": "Button",
+                    "id": "4c94c875-891f-4059-92ef-00cf2b43cbdd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Temp",
                     "type": "Button",
-                    "id": "68bcfad8-fe43-4c10-9214-3d417cb8fcb9",
+                    "id": "1a1ba80b-91d0-4426-8bbc-68ad617c59e8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Temp2",
+                    "type": "Button",
+                    "id": "112566b7-853a-4699-aa04-76d52430d529",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -580,11 +607,55 @@
                 {
                     "name": "",
                     "id": "3df19291-785f-427f-9b49-b816245132ec",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlaceObject",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0d82e8aa-0dd8-4236-a580-5fc99277bdc8",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CancelObject",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7954ddd8-8f35-493b-b708-7489f6238ff8",
                     "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Temp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4aff6bb5-2bcf-40ab-8106-394f400131b1",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Temp2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0575af10-d336-4a30-878d-2346b88d32f4",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Temp2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

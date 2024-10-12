@@ -13,6 +13,8 @@ public class FoodBase : PrefabBase
         base.Start();
 
         spriteRenderer.sortingLayerName = "Food";
+        int gameObjectLayer = LayerMask.NameToLayer("Game Object");
+        gameObject.layer = gameObjectLayer;
     }
 
     // Update is called once per frame
