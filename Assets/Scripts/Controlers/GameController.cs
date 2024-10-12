@@ -8,12 +8,14 @@ public class GameController : MonoBehaviour
     private IEnumerator conveyerBeltAnimCoroutine;
     public List<ConveyerBelt> conveyerBeltList;
 
+    public float conveyerBeltAnimDelay;
+
     // Start is called before the first frame update
     void Start()
     {
         conveyerBeltList = new List<ConveyerBelt>();
         conveyerBeltAnimTime = 0.0f;
-        conveyerBeltAnimCoroutine = IncrementConveyerBeltAnimPer(0.03f);
+        conveyerBeltAnimCoroutine = IncrementConveyerBeltAnimPer(conveyerBeltAnimDelay);
         StartCoroutine(conveyerBeltAnimCoroutine);
     }
 

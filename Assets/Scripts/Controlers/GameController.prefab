@@ -45,3 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conveyerBeltAnimTime: 0
+  conveyerBeltList: []
+  conveyerBeltAnimDelay: 1

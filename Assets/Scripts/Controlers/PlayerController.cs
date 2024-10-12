@@ -109,9 +109,9 @@ public class PlayerController : MonoBehaviour
         {
             // TODO - need to add instantiate location to mouse
             PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltPrefab.prefab", typeof(PrefabBase)));
+            gameController.conveyerBeltList.Add((ConveyerBelt)prefab);
             objectInHand = prefab;
             objectInHand.gameObject.layer = LayerMask.NameToLayer("Held In Hand");
-            gameController.conveyerBeltList.Add((ConveyerBelt)objectInHand);
         }
 
         /* If the placement is cancelled */

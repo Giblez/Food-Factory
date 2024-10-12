@@ -122,67 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &148270617
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2696036593138608933, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_Name
-      value: ConveyerBeltAnimPrefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 2696036593138608933, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_TagString
-      value: ConveyerBeltAnim
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.413
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.78
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 457e2d478f62695459c256d43ef66064, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +184,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1
+  orthographic size: 2
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -412,71 +351,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &779700673
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -3371409058061971520, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 6d6d18f2bf41ac64ab2abda54614dd0e, type: 2}
-    - target: {fileID: 2696036593138608933, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_Name
-      value: ConveyerBeltPrefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 3436281666424220964, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: foodOnBelt
-      value: 
-      objectReference: {fileID: 1826789143}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.472
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.58
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 457e2d478f62695459c256d43ef66064, type: 3}
 --- !u!1001 &909329080
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -610,6 +484,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4337237963105212520, guid: ed6b4bb423708ea4f9f75785d9f8bd13, type: 3}
+      propertyPath: conveyerBeltAnimDelay
+      value: 0.03
+      objectReference: {fileID: 0}
     - target: {fileID: 6172668865252767482, guid: ed6b4bb423708ea4f9f75785d9f8bd13, type: 3}
       propertyPath: m_Name
       value: GameController
@@ -663,17 +541,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed6b4bb423708ea4f9f75785d9f8bd13, type: 3}
---- !u!114 &1826789143 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2832795765134579834, guid: 5077b0a968dfbf949a4a584cc8c4034c, type: 3}
-  m_PrefabInstance: {fileID: 909329080}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c362d4c9c5f825a4796c3a4d9eb324e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2143864700
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,8 +592,6 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 909329080}
   - {fileID: 1314159428}
-  - {fileID: 779700673}
   - {fileID: 2143864702}
   - {fileID: 569443593}
   - {fileID: 1784138297}
-  - {fileID: 148270617}
