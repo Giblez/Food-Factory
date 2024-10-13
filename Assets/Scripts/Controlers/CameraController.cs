@@ -9,6 +9,8 @@ public class CameraController : MonoBehaviour
     public InputAction camHoldAction;
     public InputAction camMoveAction;
     public InputAction zoomAction;
+    public InputAction tempAction;
+    
     public float CAM_ADJ_VAL = 0.5f;
     public float MAX_CAM_SIZE = 10.0f;
     public float MIN_CAM_SIZE = 1.0f;
@@ -22,6 +24,7 @@ public class CameraController : MonoBehaviour
         camHoldAction = InputSystem.actions.FindAction("UI/RightClick");
         camMoveAction = InputSystem.actions.FindAction("UI/Move");
         zoomAction = InputSystem.actions.FindAction("UI/ScrollWheel");
+        tempAction = InputSystem.actions.FindAction("UI/MoveHeldObject2");
     }
 
     // Update is called once per frame
@@ -32,9 +35,10 @@ public class CameraController : MonoBehaviour
         {
             // TODO - Come back and edit this to make it vector position based instea of just pushing a standard amount
             Vector2 cameraMove = camMoveAction.ReadValue<Vector2>();
-            Debug.Log(cameraMove.x + " " + cameraMove.y);
             if (cameraMove.x != 0 || cameraMove.y != 0)
             {
+                Vector2 tMove = tempAction.ReadValue<Vector2>();
+                Debug.Log(tMove.x + " " + tMove.y);                
                 camOffset = new Vector3(cameraMove.x/-10.0f, cameraMove.y/-10.0f, 0.0f);
                 transform.position += camOffset;
             }

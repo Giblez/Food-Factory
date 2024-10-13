@@ -324,10 +324,19 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   rotateHeldObjectAction:
-    m_Name: 
+    m_Name: Rotate Held Object
     m_Type: 0
     m_ExpectedControlType: 
     m_Id: 0c80d8b8-783a-465d-ac0f-939db1b099a7
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  moveHeldObjectAction:
+    m_Name: Move Held Object
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: e062c395-80aa-4eb6-a4fc-7728b126d212
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []

@@ -17,6 +17,9 @@ public class ConveyerBelt : PrefabBase
     /* Spline member variable */
     public SplineContainer splineContainer;
 
+    /* Location member variables */
+    public Vector3Int cellGridPosition;
+
     /* References to the objects connected to this conveyer belt */
     public PrefabBase startConnector;
     public PrefabBase endConnector;
@@ -57,7 +60,7 @@ public class ConveyerBelt : PrefabBase
     /* Moves the current food item on the conveyer belt along */
     public void MoveFoodAlongBelt()
     {
-        if (foodOnBelt != null)
+        if (foodOnBelt != null && perAlongSpline != 1.0f)
         {
             perAlongSpline += perOffset;
             /* Get the position along the spline */

@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public InputAction tempAction2;
     public InputAction cancelObjAction;
     public InputAction rotateHeldObjectAction;
+    public InputAction moveHeldObjectAction;
 
     /* Reference to Game Controller */
     public GameController gameController;
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour
         tempAction2 = InputSystem.actions.FindAction("UI/Temp2");
         cancelObjAction = InputSystem.actions.FindAction("UI/CancelObject");
         rotateHeldObjectAction = InputSystem.actions.FindAction("UI/RotateHeldObject");
+        moveHeldObjectAction = InputSystem.actions.FindAction("UI/MoveHeldObject");
 
         /* Initialize misc variables */
         objectInHand = null;
@@ -76,7 +78,39 @@ public class PlayerController : MonoBehaviour
                 /* Check if we should set rotation of conveyerbelt */
                 if (objectInHand.GetType() == typeof(ConveyerBelt))
                 {
+                    ConveyerBelt conveyerBeltInHand = (ConveyerBelt) objectInHand;
+                    conveyerBeltInHand.cellGridPosition = cellGridPosition;
                     Debug.Log("New Belt, Count: " + gameController.conveyerBeltList.Count);
+                    Vector2 testMove = moveHeldObjectAction.ReadValue<Vector2>();
+                    Debug.Log("Move: " + testMove.x + " " + testMove.y);
+                    /* If the mouse is moving right to left */
+                    if (testMove.x > testMove.y)
+                    {
+                        float xLoc = 0.0f;
+                        if (testMove.x < 0.0f)
+                        {
+                            xLoc = -1.0f;
+                        }
+                        else
+                        {
+                            xLoc = 1.0f;
+                        }
+                        objectInHand.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 90.0f*xLoc);
+                    }
+                    /* If the mouse is moving up and down */
+                    else
+                    {
+                        float yLoc = 0.0f;
+                        if (testMove.y < 0.0f)
+                        {
+                            yLoc = -1.0f;
+                        }
+                        else
+                        {
+                            yLoc = 1.0f;
+                        }   
+                        objectInHand.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 90.0f*yLoc);                 
+                    }
                 }
 
                 Debug.Log("New Belt");
