@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    public Grid mGrid;
+
     public float conveyerBeltAnimTime;
     private IEnumerator conveyerBeltAnimCoroutine;
     public List<ConveyerBelt> conveyerBeltList;
@@ -22,7 +24,6 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     // TODO add an incrementer to go over list and increment the nimation of all belts before continuing
@@ -38,10 +39,6 @@ public class GameController : MonoBehaviour
             }
 
             conveyerBeltAnimTime += 0.125f;
-            if (Mathf.Approximately(conveyerBeltAnimTime, 1.0f))
-            {
-                conveyerBeltAnimTime = 0.0f;
-            }
         }
     }
 

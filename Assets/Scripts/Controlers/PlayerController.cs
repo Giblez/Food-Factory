@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour
     
     /* Game objects */
     public Camera mCamera;
-    public Grid mGrid;
 
     private Vector2 placedLoc2D;
 
@@ -55,8 +54,8 @@ public class PlayerController : MonoBehaviour
             /* Set the object position to the center of the current grid cell the mouse is over */
             Vector3 mousePosition = mCamera.ScreenToWorldPoint(Input.mousePosition);
             mousePosition.z = 0;
-            Vector3Int cellPosition = mGrid.WorldToCell(mousePosition);
-            objectInHand.transform.position = mGrid.GetCellCenterWorld(cellPosition);
+            Vector3Int cellPosition = gameController.mGrid.WorldToCell(mousePosition);
+            objectInHand.transform.position = gameController.mGrid.GetCellCenterWorld(cellPosition);
         }
 
         /* If the object is placed */
@@ -65,8 +64,8 @@ public class PlayerController : MonoBehaviour
             /* Get the center of the current grid cell the mouse is over */
             Vector3 mousePosition = mCamera.ScreenToWorldPoint(Input.mousePosition);
             mousePosition.z = 0;
-            Vector3Int cellGridPosition = mGrid.WorldToCell(mousePosition);
-            Vector3 cellWorldPosition = mGrid.GetCellCenterWorld(cellGridPosition);
+            Vector3Int cellGridPosition = gameController.mGrid.WorldToCell(mousePosition);
+            Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPosition);
             Vector2 cellWorldPosition2D = new Vector2(cellWorldPosition.x, cellWorldPosition.y);
 
             /* Check if there is any object already in the grid at the location */
@@ -75,11 +74,11 @@ public class PlayerController : MonoBehaviour
             /* Check if we are at a new cell position and there is no overlap */
             if ((placedLoc2D != cellWorldPosition2D) && (cellCollider == null))
             {
+                objectInHand.cellGridPosition = cellGridPosition;
                 /* Check if we should set rotation of conveyerbelt */
                 if (objectInHand.GetType() == typeof(ConveyerBelt))
                 {
                     ConveyerBelt conveyerBeltInHand = (ConveyerBelt) objectInHand;
-                    conveyerBeltInHand.cellGridPosition = cellGridPosition;
                     Debug.Log("New Belt, Count: " + gameController.conveyerBeltList.Count);
                     Vector2 testMove = moveHeldObjectAction.ReadValue<Vector2>();
                     Debug.Log("Move: " + testMove.x + " " + testMove.y);
@@ -121,6 +120,7 @@ public class PlayerController : MonoBehaviour
                 placedLoc2D = cellWorldPosition2D;
 
                 // TODO - add this to a function in the future since its the same as summoning a conveyer belt below
+                // TODO - need to figure out how to to instantiate the last summoned type
                 PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltPrefab.prefab", typeof(PrefabBase)), 
                     cellWorldPosition, objectInHand.transform.rotation);
                 objectInHand = null;
@@ -130,10 +130,10 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        /* Temp action to summon a raw chicken */
+        /* Temp action to summon a fridge */
         if (tempAction.ReadValue<float>() == 1.0f && objectInHand == null)
         {
-            PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Food/Ingredients/Meat/RawChicken/RawChickenPrefab.prefab", typeof(PrefabBase)));
+            PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Machines/Fridge/FridgePrefab.prefab", typeof(PrefabBase)));
             prefab.gameObject.layer = LayerMask.NameToLayer("Held In Hand");
             objectInHand = prefab;
         }
@@ -151,7 +151,10 @@ public class PlayerController : MonoBehaviour
         /* If the placement is cancelled */
         if (cancelObjAction.ReadValue<float>() == 1.0 && objectInHand != null)
         {
-            gameController.RemoveConveyerBelt((ConveyerBelt)objectInHand);
+            if (objectInHand.GetType() == typeof(ConveyerBelt))
+            {
+                gameController.RemoveConveyerBelt((ConveyerBelt)objectInHand);
+            }
             objectInHand.Destroy();
             objectInHand = null;
             placedLoc2D = new Vector2(Mathf.Infinity, Mathf.Infinity);

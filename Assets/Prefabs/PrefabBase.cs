@@ -9,6 +9,9 @@ public class PrefabBase : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public GameController gameController;
 
+    /* Grid Cell location */
+    public Vector3Int cellGridPosition;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {

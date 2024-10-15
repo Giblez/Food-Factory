@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - ConveyerBeltAnim
+  - ConveyerBelt
   layers:
   - Default
   - TransparentFX
