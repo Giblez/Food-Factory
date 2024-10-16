@@ -19,7 +19,7 @@ public class NewBehaviourScript : PrefabBase
         base.Start();
 
         storedObjs = new Dictionary<string, int>();
-        storedObjs.Add("RawChicken", 50);
+        storedObjs.Add("RawChicken", 1);
 
         takeItemOutCoroutine = TakeItemOurOfFridge(takeItemOutDelay);
         StartCoroutine(takeItemOutCoroutine);

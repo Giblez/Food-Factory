@@ -150,6 +150,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Temp3",
+                    "type": "Button",
+                    "id": "b0108d2c-608e-486c-a51a-755bcc619fcd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "RotateHeldObject",
                     "type": "Button",
                     "id": "71b30945-e739-44f5-a1ff-d99627b6b387",
@@ -721,8 +730,8 @@
                 },
                 {
                     "name": "",
-                    "id": "4aff6bb5-2bcf-40ab-8106-394f400131b1",
-                    "path": "",
+                    "id": "0575af10-d336-4a30-878d-2346b88d32f4",
+                    "path": "<Keyboard>/2",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -732,12 +741,12 @@
                 },
                 {
                     "name": "",
-                    "id": "0575af10-d336-4a30-878d-2346b88d32f4",
-                    "path": "<Keyboard>/2",
+                    "id": "57b2f488-aa50-4ddf-91f8-cb5287718876",
+                    "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Temp2",
+                    "action": "Temp3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2696036593138608933
+--- !u!1 &4510350977176980406
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,25 +8,25 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7521154915593528322}
-  - component: {fileID: 3436281666424220964}
-  - component: {fileID: -3371409058061971520}
-  - component: {fileID: -3425080199704163108}
-  - component: {fileID: 5848174051035241710}
+  - component: {fileID: 8576879225375416739}
+  - component: {fileID: -4867221626636397985}
+  - component: {fileID: 3722361487718836848}
+  - component: {fileID: 7166479226626006366}
+  - component: {fileID: -2558828481866906379}
   m_Layer: 0
-  m_Name: ConveyerBeltPrefab
+  m_Name: ConveyerBeltCornerPrefab
   m_TagString: ConveyerBelt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7521154915593528322
+--- !u!4 &8576879225375416739
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2696036593138608933}
+  m_GameObject: {fileID: 4510350977176980406}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -35,19 +35,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3436281666424220964
+--- !u!114 &-4867221626636397985
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2696036593138608933}
+  m_GameObject: {fileID: 4510350977176980406}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 612254ac3db3e9646bebae7c600154d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 09f554ac64b3567468c53dd5a15783e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: -1133795975, guid: 34cc6c82d7a400d488bf911b8160bbf7, type: 3}
+  sprite: {fileID: 21300000, guid: 607b485f63b8b014da7139c26d4c199e, type: 3}
   spriteRenderer: {fileID: 0}
   gameController: {fileID: 0}
   cellGridPosition: {x: 0, y: 0, z: 0}
@@ -58,34 +58,13 @@ MonoBehaviour:
   splineContainer: {fileID: 0}
   startConnector: {fileID: 0}
   endConnector: {fileID: 0}
---- !u!95 &-3371409058061971520
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2696036593138608933}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6d6d18f2bf41ac64ab2abda54614dd0e, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-3425080199704163108
+--- !u!114 &3722361487718836848
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2696036593138608933}
+  m_GameObject: {fileID: 4510350977176980406}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dab5c7d4c32e743048dfca98e2d5914f, type: 3}
@@ -108,8 +87,8 @@ MonoBehaviour:
   - m_EditModeType: 1
     m_Knots:
     - Position:
-        x: 0.16
-        y: 0
+        x: 0
+        y: -0.16
         z: 0
       TangentIn:
         x: 0
@@ -117,7 +96,7 @@ MonoBehaviour:
         z: -0
       TangentOut:
         x: 0
-        y: 0
+        y: 0.16
         z: 0
       Rotation:
         value:
@@ -130,7 +109,7 @@ MonoBehaviour:
         y: 0
         z: 0
       TangentIn:
-        x: 0
+        x: 0.16
         y: 0
         z: 0
       TangentOut:
@@ -144,9 +123,9 @@ MonoBehaviour:
           z: 0
           w: 1
     m_MetaData:
-    - Mode: 2
+    - Mode: 4
       Tension: 0.5
-    - Mode: 1
+    - Mode: 4
       Tension: 0.5
     m_Closed: 0
     m_IntData:
@@ -159,13 +138,13 @@ MonoBehaviour:
       m_Data: []
   m_Knots:
     m_KnotsLink: []
---- !u!61 &5848174051035241710
+--- !u!61 &7166479226626006366
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2696036593138608933}
+  m_GameObject: {fileID: 4510350977176980406}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -204,3 +183,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.32, y: 0.32}
   m_EdgeRadius: 0
+--- !u!95 &-2558828481866906379
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4510350977176980406}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 13a719ea56cd109449b2a3b01633f43c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

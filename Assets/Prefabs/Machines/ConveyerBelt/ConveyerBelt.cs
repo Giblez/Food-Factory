@@ -61,9 +61,11 @@ public class ConveyerBelt : PrefabBase
     {
         if (foodOnBelt != null)
         {
+            Debug.Log(perAlongSpline);
             if (perAlongSpline < 1.0f)
             {
                 perAlongSpline += perOffset;
+                Debug.Log(perOffset);
                 /* Get the position along the spline */
                 float3 splinePos = splineContainer.EvaluatePosition(splineContainer.Spline, perAlongSpline);
                 /* Set position of the food to the world position */
@@ -73,6 +75,7 @@ public class ConveyerBelt : PrefabBase
             /* Dont wait till next iteraition to move food to next belt if needed */
             if (perAlongSpline >= 1.0f)
             {
+                Debug.Log("done");
                 // TODO - this is the exact same as the fridge code, see if it can be combined to a common function
                 /* Food is at end of conveyer belt, wait unless there is a conveyer belt attached,
                 if so, move food to next belt */

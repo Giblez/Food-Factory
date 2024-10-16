@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public InputAction placeObjAction;
     public InputAction tempAction;
     public InputAction tempAction2;
+    public InputAction tempAction3;
     public InputAction cancelObjAction;
     public InputAction rotateHeldObjectAction;
     public InputAction moveHeldObjectAction;
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
         placeObjAction = InputSystem.actions.FindAction("UI/PlaceObject");
         tempAction = InputSystem.actions.FindAction("UI/Temp");
         tempAction2 = InputSystem.actions.FindAction("UI/Temp2");
+        tempAction3 = InputSystem.actions.FindAction("UI/Temp3");
         cancelObjAction = InputSystem.actions.FindAction("UI/CancelObject");
         rotateHeldObjectAction = InputSystem.actions.FindAction("UI/RotateHeldObject");
         moveHeldObjectAction = InputSystem.actions.FindAction("UI/MoveHeldObject");
@@ -82,34 +84,34 @@ public class PlayerController : MonoBehaviour
                     Debug.Log("New Belt, Count: " + gameController.conveyerBeltList.Count);
                     Vector2 testMove = moveHeldObjectAction.ReadValue<Vector2>();
                     Debug.Log("Move: " + testMove.x + " " + testMove.y);
-                    /* If the mouse is moving right to left */
-                    if (testMove.x > testMove.y)
-                    {
-                        float xLoc = 0.0f;
-                        if (testMove.x < 0.0f)
-                        {
-                            xLoc = -1.0f;
-                        }
-                        else
-                        {
-                            xLoc = 1.0f;
-                        }
-                        objectInHand.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 90.0f*xLoc);
-                    }
-                    /* If the mouse is moving up and down */
-                    else
-                    {
-                        float yLoc = 0.0f;
-                        if (testMove.y < 0.0f)
-                        {
-                            yLoc = -1.0f;
-                        }
-                        else
-                        {
-                            yLoc = 1.0f;
-                        }   
-                        objectInHand.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 90.0f*yLoc);                 
-                    }
+                    // /* If the mouse is moving right to left */
+                    // if (testMove.x > testMove.y)
+                    // {
+                    //     float xLoc = 0.0f;
+                    //     if (testMove.x < 0.0f)
+                    //     {
+                    //         xLoc = -1.0f;
+                    //     }
+                    //     else
+                    //     {
+                    //         xLoc = 1.0f;
+                    //     }
+                    //     objectInHand.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 90.0f*xLoc);
+                    // }
+                    // /* If the mouse is moving up and down */
+                    // else
+                    // {
+                    //     float yLoc = 0.0f;
+                    //     if (testMove.y < 0.0f)
+                    //     {
+                    //         yLoc = -1.0f;
+                    //     }
+                    //     else
+                    //     {
+                    //         yLoc = 1.0f;
+                    //     }   
+                    //     objectInHand.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 90.0f*yLoc);                 
+                    // }
                 }
 
                 Debug.Log("New Belt");
@@ -133,7 +135,13 @@ public class PlayerController : MonoBehaviour
         /* Temp action to summon a fridge */
         if (tempAction.ReadValue<float>() == 1.0f && objectInHand == null)
         {
-            PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Machines/Fridge/FridgePrefab.prefab", typeof(PrefabBase)));
+            Vector3 mousePosition = mCamera.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0;
+            Vector3Int cellGridPosition = gameController.mGrid.WorldToCell(mousePosition);
+            Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPosition);
+
+            PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Machines/Fridge/FridgePrefab.prefab", typeof(PrefabBase)),
+                cellWorldPosition, Quaternion.identity);
             prefab.gameObject.layer = LayerMask.NameToLayer("Held In Hand");
             objectInHand = prefab;
         }
@@ -141,8 +149,30 @@ public class PlayerController : MonoBehaviour
         /* Temp action to summon a conveyer belt */
         if (tempAction2.ReadValue<float>() == 1.0f && objectInHand == null)
         {
+            Vector3 mousePosition = mCamera.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0;
+            Vector3Int cellGridPosition = gameController.mGrid.WorldToCell(mousePosition);
+            Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPosition);
+
             // TODO - need to add instantiate location to mouse
-            PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltPrefab.prefab", typeof(PrefabBase)));
+            PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltPrefab.prefab", typeof(PrefabBase)),
+                cellWorldPosition, Quaternion.identity);
+            gameController.conveyerBeltList.Add((ConveyerBelt)prefab);
+            objectInHand = prefab;
+            objectInHand.gameObject.layer = LayerMask.NameToLayer("Held In Hand");
+        }
+
+        /* Temp action to summon a corner conveyer belt */
+        if (tempAction3.ReadValue<float>() == 1.0f && objectInHand == null)
+        {
+            Vector3 mousePosition = mCamera.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0;
+            Vector3Int cellGridPosition = gameController.mGrid.WorldToCell(mousePosition);
+            Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPosition);
+
+            // TODO - need to add instantiate location to mouse
+            PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltCorner/ConveyerBeltCornerPrefab.prefab", typeof(PrefabBase)),
+                cellWorldPosition, Quaternion.identity);
             gameController.conveyerBeltList.Add((ConveyerBelt)prefab);
             objectInHand = prefab;
             objectInHand.gameObject.layer = LayerMask.NameToLayer("Held In Hand");
@@ -151,7 +181,8 @@ public class PlayerController : MonoBehaviour
         /* If the placement is cancelled */
         if (cancelObjAction.ReadValue<float>() == 1.0 && objectInHand != null)
         {
-            if (objectInHand.GetType() == typeof(ConveyerBelt))
+            if (objectInHand.GetType() == typeof(ConveyerBelt) ||
+            objectInHand.GetType() == typeof(ConveyerBeltCorner))
             {
                 gameController.RemoveConveyerBelt((ConveyerBelt)objectInHand);
             }
