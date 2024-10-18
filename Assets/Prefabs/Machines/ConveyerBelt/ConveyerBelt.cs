@@ -48,6 +48,7 @@ public class ConveyerBelt : PrefabBase
         perAlongSpline = 0.0f;
         /* Get the position along the spline */
         float3 splinePos = splineContainer.EvaluatePosition(splineContainer.Spline, perAlongSpline);
+        foodOnBelt.transform.position = splinePos;
     }
 
     public void ClearFoodFromBelt()
@@ -61,11 +62,9 @@ public class ConveyerBelt : PrefabBase
     {
         if (foodOnBelt != null)
         {
-            Debug.Log(perAlongSpline);
             if (perAlongSpline < 1.0f)
             {
                 perAlongSpline += perOffset;
-                Debug.Log(perOffset);
                 /* Get the position along the spline */
                 float3 splinePos = splineContainer.EvaluatePosition(splineContainer.Spline, perAlongSpline);
                 /* Set position of the food to the world position */
@@ -73,13 +72,23 @@ public class ConveyerBelt : PrefabBase
             }
             
             /* Dont wait till next iteraition to move food to next belt if needed */
-            if (perAlongSpline >= 1.0f)
+            else if (perAlongSpline >= 1.0f)
             {
-                Debug.Log("done");
+                Vector3Int temp = new Vector3Int(0, 0, 0);
+                if (Mathf.Approximately(Mathf.Abs(gameObject.transform.right.x), 1.0f))
+                {
+                    /* Multiply by -1 to flip sign */
+                    temp.x = (int)gameObject.transform.right.x * -1;
+                }
+                if (Mathf.Approximately(Mathf.Abs(gameObject.transform.right.y), 1.0f))
+                {
+                    temp.y = (int)gameObject.transform.right.y * -1;
+                }
+
                 // TODO - this is the exact same as the fridge code, see if it can be combined to a common function
                 /* Food is at end of conveyer belt, wait unless there is a conveyer belt attached,
                 if so, move food to next belt */
-                Vector3Int cellGridPositionT = new Vector3Int(cellGridPosition.x, cellGridPosition.y-1, cellGridPosition.z);
+                Vector3Int cellGridPositionT = new Vector3Int(cellGridPosition.x+temp.x, cellGridPosition.y+temp.y, cellGridPosition.z);
                 Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPositionT);
                 Vector2 cellWorldPosition2D = new Vector2(cellWorldPosition.x, cellWorldPosition.y);
 

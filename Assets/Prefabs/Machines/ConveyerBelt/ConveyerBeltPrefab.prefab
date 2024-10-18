@@ -52,7 +52,7 @@ MonoBehaviour:
   gameController: {fileID: 0}
   cellGridPosition: {x: 0, y: 0, z: 0}
   animator: {fileID: 0}
-  animKeys: 8
+  animKeys: 16
   beltMoveInc: {x: 0, y: 0, z: 0}
   foodOnBelt: {fileID: 0}
   splineContainer: {fileID: 0}

@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     public Grid mGrid;
+    public Camera mCamera;
 
     public float conveyerBeltAnimTime;
     private IEnumerator conveyerBeltAnimCoroutine;

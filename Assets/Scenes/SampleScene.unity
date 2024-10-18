@@ -122,67 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &85686252
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2696036593138608933, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_Name
-      value: ConveyerBeltPrefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 3436281666424220964, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: animKeys
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.09
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.297
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7521154915593528322, guid: 457e2d478f62695459c256d43ef66064, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 457e2d478f62695459c256d43ef66064, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,63 +388,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db393efba1b1f40459f82f429fc70f91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1726601688
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4510350977176980406, guid: 9c6cd486f9f18134ca80aee9feec7fe4, type: 3}
-      propertyPath: m_Name
-      value: ConveyerBeltCornerPrefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 8576879225375416739, guid: 9c6cd486f9f18134ca80aee9feec7fe4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.3763232
-      objectReference: {fileID: 0}
-    - target: {fileID: 8576879225375416739, guid: 9c6cd486f9f18134ca80aee9feec7fe4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.25023592
-      objectReference: {fileID: 0}
-    - target: {fileID: 8576879225375416739, guid: 9c6cd486f9f18134ca80aee9feec7fe4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8576879225375416739, guid: 9c6cd486f9f18134ca80aee9feec7fe4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8576879225375416739, guid: 9c6cd486f9f18134ca80aee9feec7fe4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8576879225375416739, guid: 9c6cd486f9f18134ca80aee9feec7fe4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8576879225375416739, guid: 9c6cd486f9f18134ca80aee9feec7fe4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8576879225375416739, guid: 9c6cd486f9f18134ca80aee9feec7fe4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8576879225375416739, guid: 9c6cd486f9f18134ca80aee9feec7fe4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8576879225375416739, guid: 9c6cd486f9f18134ca80aee9feec7fe4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9c6cd486f9f18134ca80aee9feec7fe4, type: 3}
 --- !u!1001 &1784138297
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -519,8 +401,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2143864701}
     - target: {fileID: -4337237963105212520, guid: ed6b4bb423708ea4f9f75785d9f8bd13, type: 3}
+      propertyPath: mCamera
+      value: 
+      objectReference: {fileID: 519420031}
+    - target: {fileID: -4337237963105212520, guid: ed6b4bb423708ea4f9f75785d9f8bd13, type: 3}
       propertyPath: conveyerBeltAnimDelay
-      value: 2
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 6172668865252767482, guid: ed6b4bb423708ea4f9f75785d9f8bd13, type: 3}
       propertyPath: m_Name
@@ -627,5 +513,3 @@ SceneRoots:
   - {fileID: 2143864702}
   - {fileID: 569443593}
   - {fileID: 1784138297}
-  - {fileID: 85686252}
-  - {fileID: 1726601688}

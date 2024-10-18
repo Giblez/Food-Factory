@@ -200,7 +200,6 @@ public class PlayerController : MonoBehaviour
             {
                 objectInHandSpun = true;
                 objectInHand.transform.Rotate(0, 0, 90*rotVal);
-                Debug.Log(rotVal);
             }
             else
             {

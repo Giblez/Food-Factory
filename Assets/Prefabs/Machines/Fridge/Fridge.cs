@@ -31,26 +31,31 @@ public class NewBehaviourScript : PrefabBase
         {
             yield return new WaitForSeconds(waitTime);
             
-            // TODO - make a world wide function to do this:
-            Vector3Int cellGridPositionT = new Vector3Int(cellGridPosition.x, cellGridPosition.y-1, cellGridPosition.z);
-            Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPositionT);
-            Vector2 cellWorldPosition2D = new Vector2(cellWorldPosition.x, cellWorldPosition.y);
-
-            /* First check if there is an object connected to the fridge (TODO - for now just checking the one below) */
-            Collider2D cellCollider = Physics2D.OverlapPoint(cellWorldPosition2D, 1<<LayerMask.NameToLayer("Game Object"));
-            if (cellCollider != null)
+            /* First make sure the fridge is on the ground */
+            if (gameObject.layer == LayerMask.NameToLayer("Game Object"))
             {
-                /* Then make sure the object is a conveyer belt */
-                if (cellCollider.gameObject.tag == "ConveyerBelt")
-                {
-                    ConveyerBelt connectedBelt = cellCollider.gameObject.GetComponent<ConveyerBelt>();
+                // TODO - make a world wide function to do this:
+                Vector3Int cellGridPositionT = new Vector3Int(cellGridPosition.x, cellGridPosition.y-1, cellGridPosition.z);
+                Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPositionT);
+                Vector2 cellWorldPosition2D = new Vector2(cellWorldPosition.x, cellWorldPosition.y);
 
-                    /* Then make sure there is currently nothing on the conveyer belt */
-                    if (connectedBelt.foodOnBelt == null && storedObjs["RawChicken"] > 0)
+                /* First check if there is an object connected to the fridge (TODO - for now just checking the one below) */
+                Collider2D cellCollider = Physics2D.OverlapPoint(cellWorldPosition2D, 1<<LayerMask.NameToLayer("Game Object"));
+                if (cellCollider != null)
+                {
+                    /* Then make sure the object is a conveyer belt on the ground */
+                    if (cellCollider.gameObject.tag == "ConveyerBelt" && cellCollider.gameObject.layer == LayerMask.NameToLayer("Game Object"))
                     {
-                        RawChicken prefab = Instantiate((RawChicken)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Food/Ingredients/Meat/RawChicken/RawChickenPrefab.prefab", typeof(RawChicken)));
-                        connectedBelt.SetFoodToBelt(prefab);
-                        storedObjs["RawChicken"] -= 1;
+                        ConveyerBelt connectedBelt = cellCollider.gameObject.GetComponent<ConveyerBelt>();
+
+                        /* Then make sure there is currently nothing on the conveyer belt */
+                        if (connectedBelt.foodOnBelt == null && storedObjs["RawChicken"] > 0)
+                        {
+                            RawChicken prefab = Instantiate((RawChicken)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Food/Ingredients/Meat/RawChicken/RawChickenPrefab.prefab", typeof(RawChicken)),
+                                gameObject.transform.position, gameObject.transform.rotation);
+                            connectedBelt.SetFoodToBelt(prefab);
+                            storedObjs["RawChicken"] -= 1;
+                        }
                     }
                 }
             }

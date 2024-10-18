@@ -20,6 +20,10 @@ public class PrefabBase : MonoBehaviour
 
         GameObject gameControllerObj = GameObject.FindWithTag("GameController");
         gameController = gameControllerObj.GetComponent<GameController>();
+
+        Vector3 mousePosition = gameController.mCamera.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = 0;
+        cellGridPosition = gameController.mGrid.WorldToCell(mousePosition);
     }
 
     // Update is called once per frame
