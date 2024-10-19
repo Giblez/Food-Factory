@@ -40,6 +40,9 @@ public class ConveyerBelt : PrefabBase
         perAlongSpline = 0.0f;
         perOffset = 1.0f / animKeys;
 
+        /* Add self to game controller conveyer belt list */
+        gameController.conveyerBeltList.Add(this);
+        Debug.Log("New Belt, Count: " + gameController.conveyerBeltList.Count);    
     }
 
     /* Sets the input food item to be the item on the belt */

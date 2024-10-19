@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
 
     /* Reference to Game Controller */
     public GameController gameController;
+    /* String holding the path to the asset in hand */
+    private string pathToAssetInHand;
     /* Reference to the object held in hand */
     public PrefabBase objectInHand;
     /* Boolean to hold if the object has already spun for
@@ -62,6 +64,7 @@ public class PlayerController : MonoBehaviour
         moveHeldObjectAction = InputSystem.actions.FindAction("UI/MoveHeldObject");
 
         /* Initialize misc variables */
+        pathToAssetInHand = "";
         objectInHand = null;
         placedLoc2D = new Vector2(Mathf.Infinity, Mathf.Infinity);
         objectInHandSpun = false;
@@ -116,7 +119,6 @@ public class PlayerController : MonoBehaviour
                 if (objectInHand.GetType() == typeof(ConveyerBelt))
                 {
                     ConveyerBelt conveyerBeltInHand = (ConveyerBelt) objectInHand;
-                    Debug.Log("New Belt, Count: " + gameController.conveyerBeltList.Count);
                     Vector2 testMove = moveHeldObjectAction.ReadValue<Vector2>();
                     Debug.Log("Move: " + testMove.x + " " + testMove.y);
                     // /* If the mouse is moving right to left */
@@ -149,7 +151,6 @@ public class PlayerController : MonoBehaviour
                     // }
                 }
 
-                Debug.Log("New Belt");
                 /* Place the object in hand onto the grid */
                 objectInHand.gameObject.layer = LayerMask.NameToLayer("Game Object");
 
@@ -157,12 +158,10 @@ public class PlayerController : MonoBehaviour
                 placedLoc2D = cellWorldPosition2D;
 
                 // TODO - add this to a function in the future since its the same as summoning a conveyer belt below
-                // TODO - need to figure out how to to instantiate the last summoned type
-                PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltPrefab.prefab", typeof(PrefabBase)), 
+                PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath(pathToAssetInHand, typeof(PrefabBase)), 
                     cellWorldPosition, objectInHand.transform.rotation);
                 objectInHand = null;
                 prefab.gameObject.layer = LayerMask.NameToLayer("Held In Hand");
-                gameController.conveyerBeltList.Add((ConveyerBelt)prefab);    
                 objectInHand = prefab;  
             }
         }
@@ -180,7 +179,8 @@ public class PlayerController : MonoBehaviour
             Vector3Int cellGridPosition = gameController.mGrid.WorldToCell(mousePosition);
             Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPosition);
 
-            PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Machines/Fridge/FridgePrefab.prefab", typeof(PrefabBase)),
+            pathToAssetInHand = "Assets/Prefabs/Machines/Fridge/FridgePrefab.prefab";
+            PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath(pathToAssetInHand, typeof(PrefabBase)),
                 cellWorldPosition, Quaternion.identity);
             prefab.gameObject.layer = LayerMask.NameToLayer("Held In Hand");
             objectInHand = prefab;
@@ -197,9 +197,9 @@ public class PlayerController : MonoBehaviour
             Vector3Int cellGridPosition = gameController.mGrid.WorldToCell(mousePosition);
             Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPosition);
 
-            PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltPrefab.prefab", typeof(PrefabBase)),
+            pathToAssetInHand = "Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltPrefab.prefab";
+            PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath(pathToAssetInHand, typeof(PrefabBase)),
                 cellWorldPosition, Quaternion.identity);
-            gameController.conveyerBeltList.Add((ConveyerBelt)prefab);
             objectInHand = prefab;
             objectInHand.gameObject.layer = LayerMask.NameToLayer("Held In Hand");
         }
@@ -212,9 +212,9 @@ public class PlayerController : MonoBehaviour
             Vector3Int cellGridPosition = gameController.mGrid.WorldToCell(mousePosition);
             Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPosition);
 
-            PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltCorner/ConveyerBeltCornerLeftPrefab.prefab", typeof(PrefabBase)),
+            pathToAssetInHand = "Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltCorner/ConveyerBeltCornerLeftPrefab.prefab";
+            PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath(pathToAssetInHand, typeof(PrefabBase)),
                 cellWorldPosition, Quaternion.identity);
-            gameController.conveyerBeltList.Add((ConveyerBelt)prefab);
             objectInHand = prefab;
             objectInHand.gameObject.layer = LayerMask.NameToLayer("Held In Hand");
         }
@@ -227,9 +227,9 @@ public class PlayerController : MonoBehaviour
             Vector3Int cellGridPosition = gameController.mGrid.WorldToCell(mousePosition);
             Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPosition);
 
-            PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltCorner/ConveyerBeltCornerRightPrefab.prefab", typeof(PrefabBase)),
+            pathToAssetInHand = "Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltCorner/ConveyerBeltCornerRightPrefab.prefab";
+            PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath(pathToAssetInHand, typeof(PrefabBase)),
                 cellWorldPosition, Quaternion.identity);
-            gameController.conveyerBeltList.Add((ConveyerBelt)prefab);
             objectInHand = prefab;
             objectInHand.gameObject.layer = LayerMask.NameToLayer("Held In Hand");
         }
