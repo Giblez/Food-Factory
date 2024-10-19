@@ -6,8 +6,7 @@ using UnityEngine.InputSystem;
 public class CameraController : MonoBehaviour
 {
     public Camera mCamera;
-    public InputAction camHoldAction;
-    public InputAction camMoveAction;
+    public InputAction holdCamAction;
     public InputAction zoomAction;
     public InputAction tempAction;
     
@@ -15,35 +14,51 @@ public class CameraController : MonoBehaviour
     public float MAX_CAM_SIZE = 10.0f;
     public float MIN_CAM_SIZE = 1.0f;
 
-    private Vector3 camOffset;
+    private Vector3 camInitPos;
+    private bool cameraHeld;
 
     // Start is called before the first frame update
     void Start()
     {
         mCamera = GetComponent<Camera>();
-        camHoldAction = InputSystem.actions.FindAction("UI/RightClick");
-        camMoveAction = InputSystem.actions.FindAction("UI/Move");
+        holdCamAction = InputSystem.actions.FindAction("UI/HoldCamera");
         zoomAction = InputSystem.actions.FindAction("UI/ScrollWheel");
         tempAction = InputSystem.actions.FindAction("UI/MoveHeldObject2");
+
+        cameraHeld = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float cameraHold = camHoldAction.ReadValue<float>();
-        if (cameraHold > 0f)
+        /* Initiate Camera movement */
+        if (holdCamAction.ReadValue<float>() == 1.0f && cameraHeld == false)
         {
-            // TODO - Come back and edit this to make it vector position based instea of just pushing a standard amount
-            Vector2 cameraMove = camMoveAction.ReadValue<Vector2>();
-            if (cameraMove.x != 0 || cameraMove.y != 0)
-            {
-                Vector2 tMove = tempAction.ReadValue<Vector2>();
-                Debug.Log(tMove.x + " " + tMove.y);                
-                camOffset = new Vector3(cameraMove.x/-10.0f, cameraMove.y/-10.0f, 0.0f);
-                transform.position += camOffset;
-            }
+            /* Camera held */
+            cameraHeld = true;
+
+            /* Set the initial camera position to the mouse location */
+            camInitPos = mCamera.ScreenToWorldPoint(Input.mousePosition);
+            camInitPos.z = -10.0f;
         }
 
+        /* Handle Camera movement based off original vector an mouse position */
+        if (holdCamAction.ReadValue<float>() == 1.0f && cameraHeld == true)
+        {
+            Vector3 mousePosition = mCamera.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = -10.0f;    
+            mCamera.transform.position = mCamera.transform.position - (mousePosition - camInitPos);
+        }
+
+        /* Camera released */
+        if (holdCamAction.ReadValue<float>() == 0.0f && cameraHeld == true)
+        {
+            /* Camera released */
+            cameraHeld = false;
+            Debug.Log("Good");
+        }
+
+        /* Handle Camera zooming */
         Vector2 scrollValue = zoomAction.ReadValue<Vector2>();
         if (scrollValue.y != 0)
         {

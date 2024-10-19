@@ -105,8 +105,8 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Move",
-                    "type": "Value",
+                    "name": "HoldCamera",
+                    "type": "Button",
                     "id": "ffb29673-2433-423e-86a4-e4140d98630f",
                     "expectedControlType": "",
                     "processors": "",
@@ -614,61 +614,6 @@
                 },
                 {
                     "name": "2D Vector",
-                    "id": "ac8c2c12-1419-458c-b0ab-85ac76890a74",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "Up",
-                    "id": "d4d615a2-e9d7-4a9b-aad2-4b905d12adf8",
-                    "path": "<Mouse>/delta/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Down",
-                    "id": "c06dca68-c4b9-4cf0-ac2a-17df91a0d564",
-                    "path": "<Mouse>/delta/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Left",
-                    "id": "07a63a2b-610c-4f67-b6d5-6242ced0e02c",
-                    "path": "<Mouse>/delta/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Right",
-                    "id": "ecc0b4f7-e2d7-41b9-b2d0-dba9e1e8fe6c",
-                    "path": "<Mouse>/delta/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "2D Vector",
                     "id": "39fcbb2b-fc0a-43ea-9f16-51ecc93b28f9",
                     "path": "2DVector",
                     "interactions": "",
@@ -895,6 +840,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "DeleteObject",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ae520ea8-2744-4f64-8276-9a256f5ee61e",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HoldCamera",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
