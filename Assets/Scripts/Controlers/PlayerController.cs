@@ -28,11 +28,19 @@ public class PlayerController : MonoBehaviour
     private bool objectInHandSpun;
     /* If the mouse click has occurred */
     private bool mousePressed;
+    /* If the selecion box is out */
+    private bool selectionBoxOut;
     /* If the cancel keybinding has occurred */
     private bool cancelPressed;
     /* If the delete keybinding has occurred */
     private bool deletePressed;
     
+    /* Selection Box stuff */
+    /* Object to hold the Selection Box */
+    private PrefabBase selectionBoxFab;
+    /* Vector to hold the initial selection box mouse location */
+    private Vector3 selectionBoxInitPos;
+
     /* Game objects */
     public Camera mCamera;
 
@@ -58,8 +66,11 @@ public class PlayerController : MonoBehaviour
         placedLoc2D = new Vector2(Mathf.Infinity, Mathf.Infinity);
         objectInHandSpun = false;
         mousePressed = false;
+        selectionBoxOut = false;
+        selectionBoxInitPos = new Vector3(0.0f, 0.0f, 0.0f);
         cancelPressed = false;
         deletePressed = false;
+        selectionBoxFab = null;
     }
 
     // Update is called once per frame
@@ -158,46 +169,6 @@ public class PlayerController : MonoBehaviour
 
 
         /***************************
-        * Select Object Keybinding *
-        ***************************/
-
-        if (selectObjAction.ReadValue<float>() == 1.0f && objectInHand == null && mousePressed == false)
-        {
-            /* Set mouse pressed to true so we dont keep entering here */
-            mousePressed = true;
-
-            /* Get the center of the current grid cell the mouse is over */
-            Vector3 mousePosition = mCamera.ScreenToWorldPoint(Input.mousePosition);
-            mousePosition.z = 0;
-            Vector3Int cellGridPosition = gameController.mGrid.WorldToCell(mousePosition);
-            Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPosition);
-            Vector2 cellWorldPosition2D = new Vector2(cellWorldPosition.x, cellWorldPosition.y);
-
-            /* Check if there is any object in the grid at the location */
-            Collider2D cellCollider = Physics2D.OverlapPoint(cellWorldPosition2D, 1<<LayerMask.NameToLayer("Game Object"));            
-            if (cellCollider != null)
-            {
-                /* Clear previous selections */
-                GameObject[] prevSelectionMarkers = GameObject.FindGameObjectsWithTag("SelectionMarker");
-                foreach (GameObject obj in prevSelectionMarkers)
-                {
-                    Destroy(obj);
-                }
-
-                /* Instantiate the new selection */
-                PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Misc/SelectionMarker/SelectionMarkerPrefab.prefab", typeof(PrefabBase)), 
-                    cellWorldPosition, Quaternion.identity);
-            }
-        }
-
-        if (selectObjAction.ReadValue<float>() == 0.0f && mousePressed == true)
-        {
-            /* Mouse press released */
-            mousePressed = false;
-        }
-
-
-        /***************************
         * Summon Object Keybinding *
         ***************************/
 
@@ -226,7 +197,6 @@ public class PlayerController : MonoBehaviour
             Vector3Int cellGridPosition = gameController.mGrid.WorldToCell(mousePosition);
             Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPosition);
 
-            // TODO - need to add instantiate location to mouse
             PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltPrefab.prefab", typeof(PrefabBase)),
                 cellWorldPosition, Quaternion.identity);
             gameController.conveyerBeltList.Add((ConveyerBelt)prefab);
@@ -242,7 +212,6 @@ public class PlayerController : MonoBehaviour
             Vector3Int cellGridPosition = gameController.mGrid.WorldToCell(mousePosition);
             Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPosition);
 
-            // TODO - need to add instantiate location to mouse
             PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltCorner/ConveyerBeltCornerLeftPrefab.prefab", typeof(PrefabBase)),
                 cellWorldPosition, Quaternion.identity);
             gameController.conveyerBeltList.Add((ConveyerBelt)prefab);
@@ -258,12 +227,78 @@ public class PlayerController : MonoBehaviour
             Vector3Int cellGridPosition = gameController.mGrid.WorldToCell(mousePosition);
             Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPosition);
 
-            // TODO - need to add instantiate location to mouse
             PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltCorner/ConveyerBeltCornerRightPrefab.prefab", typeof(PrefabBase)),
                 cellWorldPosition, Quaternion.identity);
             gameController.conveyerBeltList.Add((ConveyerBelt)prefab);
             objectInHand = prefab;
             objectInHand.gameObject.layer = LayerMask.NameToLayer("Held In Hand");
+        }
+
+
+        /***************************
+        * Select Object Keybinding *
+        ***************************/
+
+        /* Instantiate Selection Box */
+        if (selectObjAction.ReadValue<float>() == 1.0f && objectInHand == null && 
+            mousePressed == false && selectionBoxOut == false)
+        {
+            /* Set mouse pressed to true so we dont keep entering here */
+            mousePressed = true;
+            selectionBoxOut = true;
+
+            Vector3 mousePosition = mCamera.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0.0f;
+            selectionBoxInitPos = mousePosition;
+
+            /* Instantiate the selection box */
+            selectionBoxFab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Misc/SelectionBox/SelectionBoxPrefab.prefab", typeof(PrefabBase)), 
+                mousePosition, Quaternion.identity);
+            selectionBoxFab.transform.localScale = new Vector3(0.0f, 0.0f, 1.0f);
+        }
+
+        /* Update Selection box based off original vector and mouse position */
+        if (selectObjAction.ReadValue<float>() == 1.0f && selectionBoxOut == true 
+            && selectionBoxFab != null)
+        {
+            // TODO - come back and look maybe fix to make pixel perfect in the future
+            Vector3 mousePosition = mCamera.ScreenToWorldPoint(Input.mousePosition);
+            float x = mousePosition.x - selectionBoxInitPos.x;
+            float y = (mousePosition.y - selectionBoxInitPos.y);
+            /* scale needs to flip for y since it grows downward */
+            selectionBoxFab.transform.localScale = new Vector3(x*3.0f, y*-3.0f, 1.0f);  
+            selectionBoxFab.transform.position =  new Vector3(mousePosition.x-(x/2.0f), mousePosition.y-(y/2.0f), 0.0f);         
+        }
+
+        /* Selection released */
+        if (selectObjAction.ReadValue<float>() == 0.0f && mousePressed == true)
+        {
+            /* Clear previous selections */
+            GameObject[] prevSelectionMarkers = GameObject.FindGameObjectsWithTag("SelectionMarker");
+            foreach (GameObject obj in prevSelectionMarkers)
+            {
+                Destroy(obj);
+            }
+
+            /* Construct Point and Size vectors for overlap box */
+            Vector2 point = new Vector2(selectionBoxFab.transform.position.x, selectionBoxFab.transform.position.y);
+            Vector2 size = new Vector2(Mathf.Abs(selectionBoxFab.transform.localScale.x/3.0f), 
+                Mathf.Abs(selectionBoxFab.transform.localScale.y/3.0f));
+
+            /* Retrieve all objects witin the Selection Box */
+            Collider2D[] cellColliders = Physics2D.OverlapBoxAll(point, size, selectionBoxFab.transform.eulerAngles.z, 
+                1<<LayerMask.NameToLayer("Game Object"));
+            foreach (Collider2D collider in cellColliders)
+            {
+                /* Instantiate the new selection */
+                PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Misc/SelectionMarker/SelectionMarkerPrefab.prefab", typeof(PrefabBase)), 
+                    collider.gameObject.transform.position, Quaternion.identity);
+            }             
+
+            /* Mouse press released */
+            mousePressed = false;
+            selectionBoxOut = false;
+            selectionBoxFab = null;
         }
 
 
