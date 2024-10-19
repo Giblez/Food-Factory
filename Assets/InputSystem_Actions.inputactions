@@ -193,6 +193,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "DeleteObject",
+                    "type": "Button",
+                    "id": "feefd949-2b0c-4088-b8ed-4f3f2ae850f3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -877,6 +886,17 @@
                     "action": "MoveHeldObject2",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "c8e630a1-4622-41e9-9dd9-f672cd69b51c",
+                    "path": "<Keyboard>/delete",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DeleteObject",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

@@ -31,8 +31,10 @@ public class PrefabBase : MonoBehaviour
     {
     }
 
-    public void Destroy()
+    /* On Destroy of the prefab */
+    protected virtual void OnDestroy()
     {
+        Debug.Log("Destroying Game Object");
         Destroy(gameObject);
     }
 }

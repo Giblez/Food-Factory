@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     /* Input Actions */
     public InputAction placeObjAction;
     public InputAction selectObjAction;
+    public InputAction deleteObjAction;
     public InputAction tempAction;
     public InputAction tempAction2;
     public InputAction tempAction3;
@@ -27,6 +28,10 @@ public class PlayerController : MonoBehaviour
     private bool objectInHandSpun;
     /* If the mouse click has occurred */
     private bool mousePressed;
+    /* If the cancel keybinding has occurred */
+    private bool cancelPressed;
+    /* If the delete keybinding has occurred */
+    private bool deletePressed;
     
     /* Game objects */
     public Camera mCamera;
@@ -39,6 +44,7 @@ public class PlayerController : MonoBehaviour
         /* Initialize input mapping */
         placeObjAction = InputSystem.actions.FindAction("UI/PlaceObject");
         selectObjAction = InputSystem.actions.FindAction("UI/SelectObject");
+        deleteObjAction = InputSystem.actions.FindAction("UI/DeleteObject");
         tempAction = InputSystem.actions.FindAction("UI/Temp");
         tempAction2 = InputSystem.actions.FindAction("UI/Temp2");
         tempAction3 = InputSystem.actions.FindAction("UI/Temp3");
@@ -52,11 +58,17 @@ public class PlayerController : MonoBehaviour
         placedLoc2D = new Vector2(Mathf.Infinity, Mathf.Infinity);
         objectInHandSpun = false;
         mousePressed = false;
+        cancelPressed = false;
+        deletePressed = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*************************
+        * Move Object with mouse *
+        *************************/
+
         /* If there is an object in hand map it to the mouse location */
         if (objectInHand != null)
         {
@@ -66,6 +78,11 @@ public class PlayerController : MonoBehaviour
             Vector3Int cellPosition = gameController.mGrid.WorldToCell(mousePosition);
             objectInHand.transform.position = gameController.mGrid.GetCellCenterWorld(cellPosition);
         }
+
+
+        /**************************
+        * Place Object Keybinding *
+        **************************/
 
         /* If the object is placed */
         if (placeObjAction.ReadValue<float>() == 1.0 && objectInHand != null)
@@ -139,6 +156,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+
+        /***************************
+        * Select Object Keybinding *
+        ***************************/
+
         if (selectObjAction.ReadValue<float>() == 1.0f && objectInHand == null && mousePressed == false)
         {
             /* Set mouse pressed to true so we dont keep entering here */
@@ -174,6 +196,11 @@ public class PlayerController : MonoBehaviour
             mousePressed = false;
         }
 
+
+        /***************************
+        * Summon Object Keybinding *
+        ***************************/
+
         /* Temp action to summon a fridge */
         if (tempAction.ReadValue<float>() == 1.0f && objectInHand == null)
         {
@@ -186,6 +213,9 @@ public class PlayerController : MonoBehaviour
                 cellWorldPosition, Quaternion.identity);
             prefab.gameObject.layer = LayerMask.NameToLayer("Held In Hand");
             objectInHand = prefab;
+            
+            /* Cancel button pressed */
+            cancelPressed = true;
         }
 
         /* Temp action to summon a conveyer belt */
@@ -236,18 +266,87 @@ public class PlayerController : MonoBehaviour
             objectInHand.gameObject.layer = LayerMask.NameToLayer("Held In Hand");
         }
 
+
+        /***************************
+        * Cancel Object Keybinding *
+        ***************************/
+
         /* If the placement is cancelled */
-        if (cancelObjAction.ReadValue<float>() == 1.0 && objectInHand != null)
+        if (cancelObjAction.ReadValue<float>() == 1.0 && objectInHand != null
+            && cancelPressed == false)
         {
-            if (objectInHand.GetType() == typeof(ConveyerBelt) ||
-            objectInHand.GetType() == typeof(ConveyerBeltCorner))
-            {
-                gameController.RemoveConveyerBelt((ConveyerBelt)objectInHand);
-            }
-            objectInHand.Destroy();
+            Destroy(objectInHand);
             objectInHand = null;
             placedLoc2D = new Vector2(Mathf.Infinity, Mathf.Infinity);
+
+            /* Cancel button pressed */
+            cancelPressed = true;
         }
+
+        /* If the selected object is cancelled */
+        if (cancelObjAction.ReadValue<float>() == 1.0 && objectInHand == null
+            && cancelPressed == false)
+        {
+            /* Clear previous selections */
+            GameObject[] prevSelectionMarkers = GameObject.FindGameObjectsWithTag("SelectionMarker");
+            foreach (GameObject obj in prevSelectionMarkers)
+            {
+                Destroy(obj);
+            }
+
+            /* Cancel button pressed */
+            cancelPressed = true;
+        }
+
+        /* Cancel object button released */
+        if (cancelObjAction.ReadValue<float>() == 0.0 && cancelPressed == true)
+        {
+            cancelPressed = false;
+        }
+
+
+        /***************************
+        * Delete Object Keybinding *
+        ***************************/
+
+        if (deleteObjAction.ReadValue<float>() == 1.0 && deletePressed == false)
+        {
+            /* Clear previous selections */
+            GameObject[] prevSelectionMarkers = GameObject.FindGameObjectsWithTag("SelectionMarker");
+            foreach (GameObject obj in prevSelectionMarkers)
+            {
+                Vector3 selectPosition = obj.transform.position;
+                selectPosition.z = 0;
+                Vector3Int cellGridPosition = gameController.mGrid.WorldToCell(selectPosition);
+                Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPosition);
+                Vector2 cellWorldPosition2D = new Vector2(cellWorldPosition.x, cellWorldPosition.y);
+
+                /* Get the object tied to this Selection Marker */
+                Collider2D cellCollider = Physics2D.OverlapPoint(cellWorldPosition2D, 1<<LayerMask.NameToLayer("Game Object"));
+                if (cellCollider != null)
+                {
+                    /* Destroy the object beneath */
+                    Destroy(cellCollider.gameObject);
+                }
+                
+                /* Destroy the Select Marker */
+                Destroy(obj);
+            }
+
+            /* Delete button pressed */
+            deletePressed = true;
+        }
+
+        /* Delete button released */
+        if (deleteObjAction.ReadValue<float>() == 0.0 && deletePressed == true)
+        {
+            deletePressed = false;
+        }
+
+
+        /***************************
+        * Rotate Object Keybinding *
+        ***************************/
 
         /* Is there an object in hand */
         if (objectInHand != null)

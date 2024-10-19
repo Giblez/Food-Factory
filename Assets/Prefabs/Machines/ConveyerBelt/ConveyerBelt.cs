@@ -119,4 +119,21 @@ public class ConveyerBelt : PrefabBase
     private void Update()
     {
     }
+    
+    /* Override the OnDestroy to ensure proper cleanup */
+    protected override void OnDestroy()
+    {
+        /* remove the belt from our Game Controller list */
+        gameController.RemoveConveyerBelt(this);
+
+        /* If there is an object on the belt, delete it too */
+        if (foodOnBelt != null)
+        {
+            Destroy(foodOnBelt);
+            ClearFoodFromBelt();
+        }
+
+        /* Call Parent On Destroy to delete the object */
+        base.OnDestroy();
+    }
 }
