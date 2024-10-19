@@ -305,6 +305,15 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  selectObjAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: da4d29c1-b2a8-4945-ae19-4722ea450fb1
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   tempAction:
     m_Name: Temp
     m_Type: 0
@@ -328,6 +337,15 @@ MonoBehaviour:
     m_Type: 0
     m_ExpectedControlType: 
     m_Id: 9ec339fe-3568-43ef-a73b-fa4be7a26f9c
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  tempAction4:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5440de3b-b60d-4c05-b083-3186023554f3
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []

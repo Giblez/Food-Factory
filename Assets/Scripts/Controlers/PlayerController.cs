@@ -9,9 +9,11 @@ public class PlayerController : MonoBehaviour
 {
     /* Input Actions */
     public InputAction placeObjAction;
+    public InputAction selectObjAction;
     public InputAction tempAction;
     public InputAction tempAction2;
     public InputAction tempAction3;
+    public InputAction tempAction4;
     public InputAction cancelObjAction;
     public InputAction rotateHeldObjectAction;
     public InputAction moveHeldObjectAction;
@@ -23,6 +25,8 @@ public class PlayerController : MonoBehaviour
     /* Boolean to hold if the object has already spun for
     the button press */
     private bool objectInHandSpun;
+    /* If the mouse click has occurred */
+    private bool mousePressed;
     
     /* Game objects */
     public Camera mCamera;
@@ -34,9 +38,11 @@ public class PlayerController : MonoBehaviour
     {
         /* Initialize input mapping */
         placeObjAction = InputSystem.actions.FindAction("UI/PlaceObject");
+        selectObjAction = InputSystem.actions.FindAction("UI/SelectObject");
         tempAction = InputSystem.actions.FindAction("UI/Temp");
         tempAction2 = InputSystem.actions.FindAction("UI/Temp2");
         tempAction3 = InputSystem.actions.FindAction("UI/Temp3");
+        tempAction4 = InputSystem.actions.FindAction("UI/Temp4");
         cancelObjAction = InputSystem.actions.FindAction("UI/CancelObject");
         rotateHeldObjectAction = InputSystem.actions.FindAction("UI/RotateHeldObject");
         moveHeldObjectAction = InputSystem.actions.FindAction("UI/MoveHeldObject");
@@ -45,6 +51,7 @@ public class PlayerController : MonoBehaviour
         objectInHand = null;
         placedLoc2D = new Vector2(Mathf.Infinity, Mathf.Infinity);
         objectInHandSpun = false;
+        mousePressed = false;
     }
 
     // Update is called once per frame
@@ -132,6 +139,41 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (selectObjAction.ReadValue<float>() == 1.0f && objectInHand == null && mousePressed == false)
+        {
+            /* Set mouse pressed to true so we dont keep entering here */
+            mousePressed = true;
+
+            /* Get the center of the current grid cell the mouse is over */
+            Vector3 mousePosition = mCamera.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0;
+            Vector3Int cellGridPosition = gameController.mGrid.WorldToCell(mousePosition);
+            Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPosition);
+            Vector2 cellWorldPosition2D = new Vector2(cellWorldPosition.x, cellWorldPosition.y);
+
+            /* Check if there is any object in the grid at the location */
+            Collider2D cellCollider = Physics2D.OverlapPoint(cellWorldPosition2D, 1<<LayerMask.NameToLayer("Game Object"));            
+            if (cellCollider != null)
+            {
+                /* Clear previous selections */
+                GameObject[] prevSelectionMarkers = GameObject.FindGameObjectsWithTag("SelectionMarker");
+                foreach (GameObject obj in prevSelectionMarkers)
+                {
+                    Destroy(obj);
+                }
+
+                /* Instantiate the new selection */
+                PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Misc/SelectionMarker/SelectionMarkerPrefab.prefab", typeof(PrefabBase)), 
+                    cellWorldPosition, Quaternion.identity);
+            }
+        }
+
+        if (selectObjAction.ReadValue<float>() == 0.0f && mousePressed == true)
+        {
+            /* Mouse press released */
+            mousePressed = false;
+        }
+
         /* Temp action to summon a fridge */
         if (tempAction.ReadValue<float>() == 1.0f && objectInHand == null)
         {
@@ -171,7 +213,23 @@ public class PlayerController : MonoBehaviour
             Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPosition);
 
             // TODO - need to add instantiate location to mouse
-            PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltCorner/ConveyerBeltCornerPrefab.prefab", typeof(PrefabBase)),
+            PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltCorner/ConveyerBeltCornerLeftPrefab.prefab", typeof(PrefabBase)),
+                cellWorldPosition, Quaternion.identity);
+            gameController.conveyerBeltList.Add((ConveyerBelt)prefab);
+            objectInHand = prefab;
+            objectInHand.gameObject.layer = LayerMask.NameToLayer("Held In Hand");
+        }
+
+        /* Temp action to summon a corner conveyer belt */
+        if (tempAction4.ReadValue<float>() == 1.0f && objectInHand == null)
+        {
+            Vector3 mousePosition = mCamera.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0;
+            Vector3Int cellGridPosition = gameController.mGrid.WorldToCell(mousePosition);
+            Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPosition);
+
+            // TODO - need to add instantiate location to mouse
+            PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltCorner/ConveyerBeltCornerRightPrefab.prefab", typeof(PrefabBase)),
                 cellWorldPosition, Quaternion.identity);
             gameController.conveyerBeltList.Add((ConveyerBelt)prefab);
             objectInHand = prefab;

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ConveyerBeltAnim
   - ConveyerBelt
+  - SelectionMarker
   layers:
   - Default
   - TransparentFX
@@ -51,4 +52,7 @@ TagManager:
     locked: 0
   - name: Machine
     uniqueID: 4171057223
+    locked: 0
+  - name: UI
+    uniqueID: 3416589681
     locked: 0

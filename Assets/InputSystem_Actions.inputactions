@@ -123,6 +123,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "SelectObject",
+                    "type": "Button",
+                    "id": "a0fd3038-b18c-4a88-aad6-7c6f7ec41543",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "CancelObject",
                     "type": "Button",
                     "id": "4c94c875-891f-4059-92ef-00cf2b43cbdd",
@@ -153,6 +162,15 @@
                     "name": "Temp3",
                     "type": "Button",
                     "id": "b0108d2c-608e-486c-a51a-755bcc619fcd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Temp4",
+                    "type": "Button",
+                    "id": "6bf30396-ef67-48f7-9a6e-3186165bcb46",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -708,6 +726,17 @@
                 },
                 {
                     "name": "",
+                    "id": "24d53845-04c0-4664-9e19-33474d1cf1b8",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectObject",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "0d82e8aa-0dd8-4236-a580-5fc99277bdc8",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
@@ -747,6 +776,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Temp3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "14da1e36-46e5-4bf3-a4b0-9a0e27c94fb5",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Temp4",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

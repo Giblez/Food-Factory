@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7166479226626006366}
   - component: {fileID: -2558828481866906379}
   m_Layer: 0
-  m_Name: ConveyerBeltCornerPrefab
+  m_Name: ConveyerBeltCornerLeftPrefab
   m_TagString: ConveyerBelt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,6 +55,7 @@ MonoBehaviour:
   animKeys: 16
   beltMoveInc: {x: 0, y: 0, z: 0}
   foodOnBelt: {fileID: 0}
+  rightVectMultiplier: -1
   splineContainer: {fileID: 0}
   startConnector: {fileID: 0}
   endConnector: {fileID: 0}

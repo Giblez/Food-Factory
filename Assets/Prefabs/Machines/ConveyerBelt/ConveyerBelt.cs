@@ -13,6 +13,7 @@ public class ConveyerBelt : PrefabBase
     public int animKeys;
     public Vector3 beltMoveInc;
     public FoodBase foodOnBelt;
+    public int rightVectMultiplier;
 
     /* Spline member variable */
     public SplineContainer splineContainer;
@@ -78,11 +79,11 @@ public class ConveyerBelt : PrefabBase
                 if (Mathf.Approximately(Mathf.Abs(gameObject.transform.right.x), 1.0f))
                 {
                     /* Multiply by -1 to flip sign */
-                    temp.x = (int)gameObject.transform.right.x * -1;
+                    temp.x = (int)gameObject.transform.right.x * rightVectMultiplier;
                 }
                 if (Mathf.Approximately(Mathf.Abs(gameObject.transform.right.y), 1.0f))
                 {
-                    temp.y = (int)gameObject.transform.right.y * -1;
+                    temp.y = (int)gameObject.transform.right.y * rightVectMultiplier;
                 }
 
                 // TODO - this is the exact same as the fridge code, see if it can be combined to a common function
