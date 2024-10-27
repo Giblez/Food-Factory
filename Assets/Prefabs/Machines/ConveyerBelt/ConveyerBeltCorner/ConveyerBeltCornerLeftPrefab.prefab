@@ -59,6 +59,7 @@ MonoBehaviour:
   splineContainer: {fileID: 0}
   startConnector: {fileID: 0}
   endConnector: {fileID: 0}
+  collisionRightVectMultiplier: 1
 --- !u!114 &3722361487718836848
 MonoBehaviour:
   m_ObjectHideFlags: 0

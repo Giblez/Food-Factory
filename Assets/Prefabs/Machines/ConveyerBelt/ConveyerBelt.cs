@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Splines;
 using Unity.Mathematics;
 
-public class ConveyerBelt : PrefabBase
+public class ConveyerBelt : MachineBase
 {
     /* Animation member variables */
     public Animator animator;
@@ -45,6 +45,23 @@ public class ConveyerBelt : PrefabBase
         Debug.Log("New Belt, Count: " + gameController.conveyerBeltList.Count);    
     }
 
+    protected virtual Vector3Int DetermineRightVector(bool isCollision)
+    {
+        /* Determine the right vector for the collided object */
+        Vector3Int retVect = new Vector3Int(0, 0, 0);
+        if (Mathf.Approximately(Mathf.Abs(gameObject.transform.right.x), 1.0f))
+        {
+            // TODO - am i forgetting mult by -1
+            retVect.x = (int)gameObject.transform.right.x * rightVectMultiplier;
+        }
+        if (Mathf.Approximately(Mathf.Abs(gameObject.transform.right.y), 1.0f))
+        {
+            retVect.y = (int)gameObject.transform.right.y * rightVectMultiplier;
+        }
+
+        return retVect;
+    }
+
     /* Sets the input food item to be the item on the belt */
     public void SetFoodToBelt(FoodBase food)
     {
@@ -75,43 +92,51 @@ public class ConveyerBelt : PrefabBase
                 foodOnBelt.transform.position = splinePos;
             }
             
-            /* Dont wait till next iteraition to move food to next belt if needed */
+            /* Food is at end of conveyer belt, wait unless there is a conveyer belt attached,
+            if so, move food to next belt */
             else if (perAlongSpline >= 1.0f)
             {
-                Vector3Int temp = new Vector3Int(0, 0, 0);
-                if (Mathf.Approximately(Mathf.Abs(gameObject.transform.right.x), 1.0f))
-                {
-                    /* Multiply by -1 to flip sign */
-                    temp.x = (int)gameObject.transform.right.x * rightVectMultiplier;
-                }
-                if (Mathf.Approximately(Mathf.Abs(gameObject.transform.right.y), 1.0f))
-                {
-                    temp.y = (int)gameObject.transform.right.y * rightVectMultiplier;
-                }
+                /* Determine the right vector for our object */
+                Vector3Int rightVect = this.DetermineRightVector(false);
 
                 // TODO - this is the exact same as the fridge code, see if it can be combined to a common function
-                /* Food is at end of conveyer belt, wait unless there is a conveyer belt attached,
-                if so, move food to next belt */
-                Vector3Int cellGridPositionT = new Vector3Int(cellGridPosition.x+temp.x, cellGridPosition.y+temp.y, cellGridPosition.z);
+                /* Determine the cell connected to the end of the conveyer belt */
+                Vector3Int cellGridPositionT = new Vector3Int(cellGridPosition.x+rightVect.x, cellGridPosition.y+rightVect.y, cellGridPosition.z);
                 Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPositionT);
                 Vector2 cellWorldPosition2D = new Vector2(cellWorldPosition.x, cellWorldPosition.y);
 
-                /* First check if there is an object connected to the fridge (TODO - for now just checking the one below) */
+                /* First check if there is an object connected to the belt */
                 Collider2D cellCollider = Physics2D.OverlapPoint(cellWorldPosition2D, 1<<LayerMask.NameToLayer("Game Object"));
                 if (cellCollider != null)
                 {
-                    /* Then make sure the object is a conveyer belt */
-                    if (cellCollider.gameObject.tag == "ConveyerBelt")
+                    /* Then determine the type of object */
+                    if (gameObject.tag == "ConveyerBelt")
                     {
                         ConveyerBelt connectedBelt = cellCollider.gameObject.GetComponent<ConveyerBelt>();
 
-                        /* Then make sure there is currently nothing on the conveyer belt */
-                        if (connectedBelt.foodOnBelt == null)
+                        /* Determine the right vector for the collided object */
+                        Vector3Int collidedRightVect = connectedBelt.DetermineRightVector(true);
+
+                        Debug.Log("Here:");
+                        Debug.Log(rightVect.x + " " + rightVect.y);
+                        Debug.Log(collidedRightVect.x + " " + collidedRightVect.y);
+
+                        /* Then make sure it is facing the same direction */
+                        if ((collidedRightVect.x == rightVect.x) && (collidedRightVect.y == rightVect.y))
                         {
-                            /* Move the food on the belt to the next belt */
-                            connectedBelt.SetFoodToBelt(foodOnBelt);
-                            ClearFoodFromBelt();
+                            /* Then make sure there is currently nothing on the conveyer belt */
+                            if (connectedBelt.foodOnBelt == null)
+                            {
+                                /* Move the food on the belt to the next belt */
+                                connectedBelt.SetFoodToBelt(foodOnBelt);
+                                ClearFoodFromBelt();
+                            }
                         }
+                    }
+                    /* Default invalid collider */
+                    else
+                    {
+
                     }
                 }
             }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-public class NewBehaviourScript : PrefabBase
+public class Fridge : MachineBase
 {
     /* Dictionary of items within the fridge */
     Dictionary<string, int> storedObjs;
