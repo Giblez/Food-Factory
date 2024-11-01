@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour
     private bool selectionBoxOut;
     /* If the cancel keybinding has occurred */
     private bool cancelPressed;
+    /* If a button press to summon an object has occurred */
+    private bool objSummonPressed;
     /* If the delete keybinding has occurred */
     private bool deletePressed;
     
@@ -73,6 +75,7 @@ public class PlayerController : MonoBehaviour
         selectionBoxInitPos = new Vector3(0.0f, 0.0f, 0.0f);
         cancelPressed = false;
         deletePressed = false;
+        objSummonPressed = false;
         selectionBoxFab = null;
     }
 
@@ -172,8 +175,14 @@ public class PlayerController : MonoBehaviour
         ***************************/
 
         /* Temp action to summon a fridge */
-        if (tempAction.ReadValue<float>() == 1.0f && objectInHand == null)
+        if (tempAction.ReadValue<float>() == 1.0f && objSummonPressed == false)
         {
+            /* Destroy the object in hand if one exists */
+            if (objectInHand != null)
+            {
+                Destroy(objectInHand);
+            }
+            
             Vector3 mousePosition = mCamera.ScreenToWorldPoint(Input.mousePosition);
             mousePosition.z = 0;
             Vector3Int cellGridPosition = gameController.mGrid.WorldToCell(mousePosition);
@@ -187,26 +196,45 @@ public class PlayerController : MonoBehaviour
             
             /* Cancel button pressed */
             cancelPressed = true;
+            objSummonPressed = true;
         }
 
         /* Temp action to summon a conveyer belt */
-        if (tempAction2.ReadValue<float>() == 1.0f && objectInHand == null)
+        if (tempAction2.ReadValue<float>() == 1.0f && objSummonPressed == false)
         {
-            Vector3 mousePosition = mCamera.ScreenToWorldPoint(Input.mousePosition);
-            mousePosition.z = 0;
-            Vector3Int cellGridPosition = gameController.mGrid.WorldToCell(mousePosition);
-            Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPosition);
+            // TODO - do the same for all summoned objects
+            /* For conveyer belts no need to erase and re instantiate a new one */
+            if (objectInHand == null || (objectInHand != null && objectInHand.tag != "ConveyerBelt")) 
+            {
+                /* Destroy the object in hand if one exists */
+                if (objectInHand != null)
+                {
+                    Destroy(objectInHand);
+                }
 
-            pathToAssetInHand = "Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltPrefab.prefab";
-            PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath(pathToAssetInHand, typeof(PrefabBase)),
-                cellWorldPosition, Quaternion.identity);
-            objectInHand = prefab;
-            objectInHand.gameObject.layer = LayerMask.NameToLayer("Held In Hand");
+                Vector3 mousePosition = mCamera.ScreenToWorldPoint(Input.mousePosition);
+                mousePosition.z = 0;
+                Vector3Int cellGridPosition = gameController.mGrid.WorldToCell(mousePosition);
+                Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPosition);
+
+                pathToAssetInHand = "Assets/Prefabs/Machines/ConveyerBelt/ConveyerBeltPrefab.prefab";
+                PrefabBase prefab = Instantiate((PrefabBase)AssetDatabase.LoadAssetAtPath(pathToAssetInHand, typeof(PrefabBase)),
+                    cellWorldPosition, Quaternion.identity);
+                objectInHand = prefab;
+                objectInHand.gameObject.layer = LayerMask.NameToLayer("Held In Hand");
+                objSummonPressed = true;
+            }
         }
 
         /* Temp action to summon a corner conveyer belt */
-        if (tempAction3.ReadValue<float>() == 1.0f && objectInHand == null)
+        if (tempAction3.ReadValue<float>() == 1.0f && objSummonPressed == false)
         {
+            /* Destroy the object in hand if one exists */
+            if (objectInHand != null)
+            {
+                Destroy(objectInHand);
+            }
+
             Vector3 mousePosition = mCamera.ScreenToWorldPoint(Input.mousePosition);
             mousePosition.z = 0;
             Vector3Int cellGridPosition = gameController.mGrid.WorldToCell(mousePosition);
@@ -217,11 +245,18 @@ public class PlayerController : MonoBehaviour
                 cellWorldPosition, Quaternion.identity);
             objectInHand = prefab;
             objectInHand.gameObject.layer = LayerMask.NameToLayer("Held In Hand");
+            objSummonPressed = true;
         }
 
         /* Temp action to summon a corner conveyer belt */
-        if (tempAction4.ReadValue<float>() == 1.0f && objectInHand == null)
+        if (tempAction4.ReadValue<float>() == 1.0f && objSummonPressed == false)
         {
+            /* Destroy the object in hand if one exists */
+            if (objectInHand != null)
+            {
+                Destroy(objectInHand);
+            }
+
             Vector3 mousePosition = mCamera.ScreenToWorldPoint(Input.mousePosition);
             mousePosition.z = 0;
             Vector3Int cellGridPosition = gameController.mGrid.WorldToCell(mousePosition);
@@ -232,6 +267,17 @@ public class PlayerController : MonoBehaviour
                 cellWorldPosition, Quaternion.identity);
             objectInHand = prefab;
             objectInHand.gameObject.layer = LayerMask.NameToLayer("Held In Hand");
+            objSummonPressed = true;
+        }
+
+        if (objSummonPressed == true &&
+                tempAction.ReadValue<float>() == 0.0f &&
+                tempAction2.ReadValue<float>() == 0.0f &&
+                tempAction3.ReadValue<float>() == 0.0f &&
+                tempAction4.ReadValue<float>() == 0.0f)
+
+        {
+            objSummonPressed = false;
         }
 
 

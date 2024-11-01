@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ConveyerBeltCorner : ConveyerBelt
 {    
-    public int collisionRightVectMultiplier;
+    public int collisionupVectMultiplier;
     
     // Start is called before the first frame update
     protected override void Start()
@@ -14,30 +14,30 @@ public class ConveyerBeltCorner : ConveyerBelt
         base.Start();
     }
 
-    protected override Vector3Int DetermineRightVector(bool isCollision)
+    protected override Vector3Int DetermineUpVector(bool isCollision)
     {
-        Vector3Int retVect = new Vector3Int(0, 0, 0);
+        Vector3Int upVect = new Vector3Int(0, 0, 0);
 
         /* If this was not the collided object */
         if (isCollision == false)
         {
-            if (Mathf.Approximately(Mathf.Abs(gameObject.transform.right.x), 1.0f))
+            if (Mathf.Approximately(Mathf.Abs(gameObject.transform.up.x), 1.0f))
             {
-                retVect.x = (int)gameObject.transform.right.x * rightVectMultiplier;
+                upVect.x = (int)gameObject.transform.up.x * upVectMultiplier;
             }
-            if (Mathf.Approximately(Mathf.Abs(gameObject.transform.right.y), 1.0f))
+            if (Mathf.Approximately(Mathf.Abs(gameObject.transform.up.y), 1.0f))
             {
-                retVect.y = (int)gameObject.transform.right.y * rightVectMultiplier;
+                upVect.y = (int)gameObject.transform.up.y * upVectMultiplier;
             }
         }
 
         /* If this is the collided object */
         else
         {
-            retVect.x = (int)gameObject.transform.right.y * rightVectMultiplier * collisionRightVectMultiplier;
-            retVect.y = (int)gameObject.transform.right.x * rightVectMultiplier * collisionRightVectMultiplier * -1;
+            upVect.x = (int)gameObject.transform.up.y * upVectMultiplier * collisionupVectMultiplier;
+            upVect.y = (int)gameObject.transform.up.x * upVectMultiplier * collisionupVectMultiplier * -1;
         }
-        return retVect;
+        return upVect;
     }
 
     // Update is called once per frame

@@ -13,7 +13,7 @@ public class ConveyerBelt : MachineBase
     public int animKeys;
     public Vector3 beltMoveInc;
     public FoodBase foodOnBelt;
-    public int rightVectMultiplier;
+    public int upVectMultiplier;
 
     /* Spline member variable */
     public SplineContainer splineContainer;
@@ -45,21 +45,21 @@ public class ConveyerBelt : MachineBase
         Debug.Log("New Belt, Count: " + gameController.conveyerBeltList.Count);    
     }
 
-    protected virtual Vector3Int DetermineRightVector(bool isCollision)
+    protected virtual Vector3Int DetermineUpVector(bool isCollision)
     {
-        /* Determine the right vector for the collided object */
-        Vector3Int retVect = new Vector3Int(0, 0, 0);
-        if (Mathf.Approximately(Mathf.Abs(gameObject.transform.right.x), 1.0f))
+        /* Determine the up vector to determine where our collided object might be */
+        Vector3Int upVect = new Vector3Int(0, 0, 0);
+        if (Mathf.Approximately(Mathf.Abs(gameObject.transform.up.x), 1.0f))
         {
             // TODO - am i forgetting mult by -1
-            retVect.x = (int)gameObject.transform.right.x * rightVectMultiplier;
+            upVect.x = (int)gameObject.transform.up.x * upVectMultiplier;
         }
-        if (Mathf.Approximately(Mathf.Abs(gameObject.transform.right.y), 1.0f))
+        if (Mathf.Approximately(Mathf.Abs(gameObject.transform.up.y), 1.0f))
         {
-            retVect.y = (int)gameObject.transform.right.y * rightVectMultiplier;
+            upVect.y = (int)gameObject.transform.up.y * upVectMultiplier;
         }
 
-        return retVect;
+        return upVect;
     }
 
     /* Sets the input food item to be the item on the belt */
@@ -96,12 +96,12 @@ public class ConveyerBelt : MachineBase
             if so, move food to next belt */
             else if (perAlongSpline >= 1.0f)
             {
-                /* Determine the right vector for our object */
-                Vector3Int rightVect = this.DetermineRightVector(false);
+                /* Determine the up vector for our object */
+                Vector3Int upVect = this.DetermineUpVector(false);
 
                 // TODO - this is the exact same as the fridge code, see if it can be combined to a common function
                 /* Determine the cell connected to the end of the conveyer belt */
-                Vector3Int cellGridPositionT = new Vector3Int(cellGridPosition.x+rightVect.x, cellGridPosition.y+rightVect.y, cellGridPosition.z);
+                Vector3Int cellGridPositionT = new Vector3Int(cellGridPosition.x+upVect.x, cellGridPosition.y+upVect.y, cellGridPosition.z);
                 Vector3 cellWorldPosition = gameController.mGrid.GetCellCenterWorld(cellGridPositionT);
                 Vector2 cellWorldPosition2D = new Vector2(cellWorldPosition.x, cellWorldPosition.y);
 
@@ -114,15 +114,15 @@ public class ConveyerBelt : MachineBase
                     {
                         ConveyerBelt connectedBelt = cellCollider.gameObject.GetComponent<ConveyerBelt>();
 
-                        /* Determine the right vector for the collided object */
-                        Vector3Int collidedRightVect = connectedBelt.DetermineRightVector(true);
+                        /* Determine the up vector for the collided object */
+                        Vector3Int collidedUpVect = connectedBelt.DetermineUpVector(true);
 
                         Debug.Log("Here:");
-                        Debug.Log(rightVect.x + " " + rightVect.y);
-                        Debug.Log(collidedRightVect.x + " " + collidedRightVect.y);
+                        Debug.Log(upVect.x + " " + upVect.y);
+                        Debug.Log(collidedUpVect.x + " " + collidedUpVect.y);
 
                         /* Then make sure it is facing the same direction */
-                        if ((collidedRightVect.x == rightVect.x) && (collidedRightVect.y == rightVect.y))
+                        if ((collidedUpVect.x == upVect.x) && (collidedUpVect.y == upVect.y))
                         {
                             /* Then make sure there is currently nothing on the conveyer belt */
                             if (connectedBelt.foodOnBelt == null)

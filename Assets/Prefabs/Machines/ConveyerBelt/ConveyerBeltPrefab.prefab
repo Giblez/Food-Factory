@@ -55,8 +55,7 @@ MonoBehaviour:
   animKeys: 16
   beltMoveInc: {x: 0, y: 0, z: 0}
   foodOnBelt: {fileID: 0}
-  rightVectMultiplier: -1
-  detectRightVectMultiplier: -1
+  upVectMultiplier: -1
   splineContainer: {fileID: 0}
   startConnector: {fileID: 0}
   endConnector: {fileID: 0}
@@ -110,8 +109,8 @@ MonoBehaviour:
   - m_EditModeType: 1
     m_Knots:
     - Position:
-        x: 0.16
-        y: 0
+        x: 0
+        y: 0.16
         z: 0
       TangentIn:
         x: 0
@@ -128,8 +127,8 @@ MonoBehaviour:
           z: 0
           w: 1
     - Position:
-        x: -0.16
-        y: 0
+        x: 0
+        y: -0.16
         z: 0
       TangentIn:
         x: 0
